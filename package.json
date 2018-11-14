@@ -1,0 +1,20 @@
+{
+  "name": "new",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Anh Lu <anhlu8@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^2.0.1",
+    "serverless-offline": "^3.31.3",
+    "serverless-sqs-alarms-plugin": "^0.1.7"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.354.0",
+    "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.1.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "uuid": "^2.0.3"
+  }
+}

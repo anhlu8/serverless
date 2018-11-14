@@ -1,0 +1,82 @@
+service: new 
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  timeout: 300
+  profile: ${env:AWS_PROFILE}
+  region: ${env:MY_AWS_REGION}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - "lambda:*"
+      Resource:
+        - "*"
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
+    # - Effect: "Allow"
+    #   Action: 
+    #     - "s3:*"
+    #   Resource: "arn:aws:s3:::${env:BUCKET_NAME}/*"
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-sqs-alarms-plugin
+  - serverless-offline
+package:
+  excludeDevDependencies: false
+  include:
+   - src/**
+  exclude:
+    - docs/**
+    - helpers/**
+    - node_modules/**
+    - test/**
+functions:
+  launch:
+    handler: handler.launch
+    description: This function will also be self-triggered on schedule & will launch the whole process.
+    cron:  
+      active: true
+      value: '30 18 * * *'
+resources:
+  Resources:
+    MyQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${env:SQS_QUEUE_NAME}
+
+        
+  # lamdaToSQS:
+  #   handler: src/handler.lamdaToSQS
+  #   description: (Step 2) This lambda function will be triggered by cron at 6:30 pm to send msg to SQS queue
+  #   cron:  
+  #     active: true
+  #     value: '30 18 * * *'
+  #   events: # The "Events" that trigger this function
+  #     - sqs: 
+  #         arn: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
+  #         batchSize: 10
+  # sqsToLambda:
+  #   handler: src/handler.sqsToLambda
+  #   description: SQS message triggers Lambda function (sample function)
+  #   events: 
+  #     - sqs: 
+  #         arn:
+  #           Fn::GetAtt:
+  #             - MyQueue
+  #             - Arn
+  # getZipFile:
+  #   handler: src/file.getZipFile
+  #   description: (Step 2) SQS message will trigger this function to make Ajax calls and save response files in S3
+  #   events:
+  #     - sqs: 
+  #         arn:
+  #           Fn::GetAtt:
+  #             - MyQueue
+  #             - Arn
+
+
+
+
