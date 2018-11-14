@@ -3,22 +3,23 @@ const {
   getFile,
   sqsToLambda,
   lamdaToSqs,
+  saveToS3
 } = require('./src');
-const rp = require('request-promise');
-// const lkAllianceUrl = process.env.LK_ALLIANCE_DATA_URL
-const lkAllianceUrl = "https://www.google.com/";
+const fetch = require('node-fetch');
+const lkAllianceUrl = process.env.LK_ALLIANCE_DATA_URL
 
 module.exports.launch = async (event, context) => {
   //1. Fetch to L&K page & parse file
-  const options = {
-    uri: lkAllianceUrl
-  };
-  return rp(options)
-    .then(function (res) {
-      console.log('this is response from fetching', res);
+  fetch(lkAllianceUrl)
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      }
+      return Promise.reject(new Error(
+        `Failed to fetch ${response.url}: ${response.status} ${response.statusText}`));
     })
-    // .then(res => lamdaToSqs(res))
-    // .then(res => sqsToLambda(res))
+    .then(response => response.buffer())
+    .then(response => saveToS3(response))
     .then(() => {
       return {
         statusCode: 200,

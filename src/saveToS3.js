@@ -6,7 +6,7 @@ module.exports.lamdaToSQS = async (event) => {
     const params = {
         Bucket: bucket, 
         Key: 'alliances.json.gz', 
-        Body: event}
+        Body: event.body}
 
     s3.putObject(params, function (err, data) {
         if (err) {
@@ -15,4 +15,8 @@ module.exports.lamdaToSQS = async (event) => {
         return console.log("Success", data);
     });
 }
+
+
+    
+    
 
