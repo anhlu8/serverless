@@ -5,8 +5,8 @@ const {
   lamdaToSqs,
   saveToS3
 } = require('./src');
+
 const fetch = require('node-fetch');
-// const lkAllianceUrl = process.env.LK_ALLIANCE_DATA_URL
 const lkAllianceUrl = "https://www.google.com/"
 
 module.exports.launch = async (event, context) => {
@@ -20,7 +20,6 @@ module.exports.launch = async (event, context) => {
         `Failed to fetch ${response.url}: ${response.status} ${response.statusText}`));
     })
     .then(response => response.buffer())
-    // .then(res => console.log('after buffering',res.toString()))
     .then(response => saveToS3(response))
     .then(() => {
       return {
