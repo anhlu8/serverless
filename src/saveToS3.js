@@ -4,7 +4,7 @@ const bucket = process.env.BUCKET_NAME;
 
 module.exports = async (event) => {
     const params = {
-        Bucket: bucket, 
+        Bucket: "anhredqueen", 
         Key: 'alliances.json.gz', 
         Body: event}
 
