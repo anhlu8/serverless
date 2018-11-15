@@ -6,19 +6,8 @@ const {
   saveToS3
 } = require('./src');
 
-const fetch = require('node-fetch');
-const lkAllianceUrl = "https://www.google.com/"
-
 module.exports.launch = async (event, context) => {
-  //1. Fetch to L&K page & parse file
-  fetch(lkAllianceUrl)
-    .then((response) => {
-      if (response.ok) {
-        return response;
-      }
-      return Promise.reject(new Error(
-        `Failed to fetch ${response.url}: ${response.status} ${response.statusText}`));
-    })
+  getFile()
     .then(response => response.buffer())
     .then(response => saveToS3(response))
     .then(() => {
