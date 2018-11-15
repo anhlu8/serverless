@@ -5,7 +5,7 @@ const sqsQueueName = process.env.SQS_QUEUE_NAME;
 const awsRegion = process.env.MY_AWS_REGION;
 const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQueueName}`;
 
-module.exports.lamdaToSQS = async (event) => {
+module.exports = async (event) => {
     const sentParams = {
         MessageBody: "this is message sent",
         QueueUrl: queueUrl,

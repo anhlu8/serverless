@@ -31,7 +31,6 @@ package:
   exclude:
     - docs/**
     - helpers/**
-    # - node_modules/**
     - test/**
 functions:
   launch:

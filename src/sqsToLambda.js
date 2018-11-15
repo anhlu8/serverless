@@ -5,7 +5,7 @@ const sqsQueueName = process.env.SQS_QUEUE_NAME;
 const awsRegion = process.env.MY_AWS_REGION;
 const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQueueName}`;
 
-module.exports.sqsToLambda = async (event, context) => {
+module.exports = async (event, context) => {
     const receivedParams = {
         QueueUrl: queueUrl,
         WaitTimeSeconds:5

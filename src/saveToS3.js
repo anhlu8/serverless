@@ -3,7 +3,6 @@ const s3 = new AWS.S3();
 const bucket = process.env.BUCKET_NAME;
 
 module.exports = async (event) => {
-    console.log('inside S3')
     const params = {
         Bucket: bucket, 
         Key: 'alliances.json.gz', 
