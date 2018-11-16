@@ -13,27 +13,58 @@ const test = async (event) => {
     Bucket: "anhredqueen",
     Key: 'alliances.json.gz',
   }
-
-  s3.getObject(params, function (err, data) {
+/*
+DD: Can you show me what happens when you run it?
+Anh: Ok! This is great with phone too, just fyi! :D
+DD: Discord has voice chat we could use, also.
+anh: Ok, do you want to use that? I don't know how
+*/
+  s3.getObject(params, async function (err, data) {
     if (err) {
-      return console.log("Error", err)
+      return console.log("Error in getObject", err)
     } else {
-      const unzip = zlib.createGunzip(data.Body);
-      const file = JSON.stringify(unzip);
-      const readFile = fs.createReadStream(file);
+      const {Body} = data;
 
-      const sentparams = {
-        Bucket: "anhredqueen",
-        Key: 'alliances.json',
-        Body: readFile
-      }
-
-      s3.putObject(sentparams, function (err, data) {
+      const processUnzippedFile = async (err, decompressed) => {
         if (err) {
-          return console.log("Error", err)
+          console.log("Error in zlib.gunzip");
         }
-        return console.log("Success", data);
-      });
+        const asString = decompressed.toString();
+        // console.log('Unzip', asString);
+        const sentparams = {
+          Bucket: "anhredqueen",
+          Key: 'alliances.json',
+          Body: asString
+        }
+
+
+        s3.putObject(sentparams, function (err, data) {
+          if (err) {
+            return console.log("Error in putObject", err)
+          }
+          return console.log("Success", data);
+        });
+      };
+
+      zlib.gunzip(Body, processUnzippedFile);
+
+      
+
+      // const file = JSON.stringify(unzip);
+      // const readFile = fs.createReadStream(file)
+
+      // const sentparams = {
+      //   Bucket: "anhredqueen",
+      //   Key: 'alliances.json',
+      //   Body: readFile
+      // }
+
+      // s3.putObject(sentparams, function (err, data) {
+      //   if (err) {
+      //     return console.log("Error in putObject", err)
+      //   }
+      //   return console.log("Success", data);
+      // });
 
     }
   })
