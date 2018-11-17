@@ -1,0 +1,26 @@
+DROP DATABASE If EXISTS lkredqueendb;
+CREATE DATABASE lkredqueendb;
+USE lkredqueendb;
+
+CREATE TABLE player (
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    name VARCHAR(100) NOT NULL,
+    playerID VARCHAR(100) NOT NULL,
+)
+
+CREATE TABLE alliance (
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    name VARCHAR(100) NOT NULL,
+    allianceID VARCHAR(100) NOT NULL,
+)
+
+CREATE TABLE habitat (
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    name VARCHAR(100) NOT NULL,
+    habitatID VARCHAR(100) NOT NULL,
+)
+
+SELECT * FROM allData;

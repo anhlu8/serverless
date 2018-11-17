@@ -16,10 +16,10 @@ provider:
       Action:
         - sqs:*
       Resource: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
-    # - Effect: "Allow"
-    #   Action: 
-    #     - "s3:*"
-    #   Resource: "arn:aws:s3:::${env:BUCKET_NAME}/*"
+    - Effect: "Allow"
+      Action: 
+        - "s3:*"
+      Resource: "arn:aws:s3:::${env:BUCKET_NAME}/*"
 plugins:
   - serverless-dotenv-plugin
   - serverless-sqs-alarms-plugin
