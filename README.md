@@ -21,15 +21,17 @@ Run `sls invoke local -f launch` to invoke the lauch function locally
 ## Deployment
 Run `sls deploy` to deploy the application. -->
 ## Built With
-* [Serverless framework](https://serverless.com/)
+* [Serverless framework](https://serverless.com/) - to replace Express.js
 * [AWS](https://aws.amazon.com/)
     - Lambda
     - SQS (decoupling solutions)
     - S3
     - RDS MySQL
+    - Identity and Access Management (IAM)
 * [React.js](https://reactjs.org/) 
+* [Node.js](https://nodejs.org/en/) 
 * [GraphQL](https://graphql.org/) 
-    - Other technologies to be used with GraphQL: Primsa, Apollo
+    - Other technologies to be used with GraphQL: Prisma, Apollo
 ## Authors
 * **Anh Lu**
 <!-- ## License
