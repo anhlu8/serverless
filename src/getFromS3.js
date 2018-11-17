@@ -8,7 +8,7 @@ module.exports = async (event) => {
     //this block of code below is to see all the files in the bucket
     // try{
     //     const response = await s3.listObjectsV2({
-    //         Bucket: "anhredqueen"
+    //         Bucket: bucket
     //     }).promise();
     //     console.log(response);
     // } catch (e) {
@@ -18,7 +18,7 @@ module.exports = async (event) => {
 
 
     const params = {
-        Bucket: "anhredqueen",
+        Bucket: bucket,
         Key: 'alliances.json.gz',
     }
     s3.getObject(params, function (err, data) {

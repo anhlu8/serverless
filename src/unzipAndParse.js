@@ -1,14 +1,14 @@
 // const fs = require('fs');
 // const strs = require('stringstream');
 // const path = require('path');
-// const bucket = process.env.BUCKET_NAME;
+const bucket = process.env.BUCKET_NAME;
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
 module.exports = async (event) => {
   const params = {
-    Bucket: "anhredqueen",
+    Bucket: bucket,
     Key: 'alliances.json.gz',
   }
   s3.getObject(params, async function (err, data) {
@@ -22,7 +22,7 @@ module.exports = async (event) => {
         }
         const asString = decompressed.toString();
         const sentparams = {
-          Bucket: "anhredqueen",
+          Bucket: bucket,
           Key: 'alliances.json',
           Body: asString
         }
