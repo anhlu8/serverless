@@ -39,6 +39,12 @@ functions:
     cron:  
       active: true
       value: '30 18 * * *'
+  # getData:
+  #   handler: src/api.getData
+  #   events:
+  #     - http:
+  #         path: data
+  #         method: get
 resources:
   Resources:
     MyQueue:

@@ -12,6 +12,7 @@
   "dependencies": {
     "aws-sdk": "^2.354.0",
     "dotenv": "^6.1.0",
+    "json2csv": "^4.3.1",
     "node-fetch": "^2.3.0",
     "path": "^0.12.7",
     "stringstream": "^1.0.0",
