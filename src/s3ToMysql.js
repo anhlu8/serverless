@@ -25,10 +25,10 @@ module.exports = async (event, context, ) => {
                 Bucket: bucket,
                 Key: 'alliances.csv',
                 ExpressionType: 'SQL',
-                Expression: 'SELECT user_name FROM S3Object WHERE cast(age as int) > 20',
+                Expression: 'CREATE TABLE alliances (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),lkname VARCHAR(100) NOT NULL,allianceID VARCHAR(100) NOT NULL)',
                 InputSerialization: {
                     CSV: {
-                        FileHeaderInfo: 'USE',
+                        FileHeaderInfo: 'NONE',
                         RecordDelimiter: '\n',
                         FieldDelimiter: ','
                     }
@@ -37,6 +37,10 @@ module.exports = async (event, context, ) => {
                     CSV: {}
                 }
             };
+            s3.selectObjectContent(params, function(err, data) {
+                if (err) console.log(err, err.stack);
+                else     console.log(data); 
+            })
         }
 
     });
