@@ -41,7 +41,12 @@ functions:
       value: '30 18 * * *'
   deserialize:
     handler: handler.deserialize
-    description: This function will be triggerred by SQS. Get a .gz file in S3, unzip & put the unzipped file back in S3.
+    description: This function will be triggerred by SQS. Get a .gz file in S3, unzip & parse it to JSON & put the JSON file back in S3.
+    events: 
+      - sqs: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
+  populate:
+    handler: handler.populate
+    description: This function will be triggerred by SQS. Get JSON file in S3, convert it to CSV file, connect to RDS Mysql and populate a table.
     events: 
       - sqs: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
 resources:
