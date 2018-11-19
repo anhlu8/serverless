@@ -3,7 +3,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  timeout: 300
+  timeout: 60
   profile: ${env:AWS_PROFILE}
   region: ${env:MY_AWS_REGION}
   iamRoleStatements:
