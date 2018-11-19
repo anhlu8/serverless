@@ -23,10 +23,10 @@ CREATE TABLE habitats (
     habitatID VARCHAR(100) NOT NULL,
 )
 
-SELECT * FROM allData;
-LOAD DATA INFILE 'c:/tmp/discounts.csv' 
-INTO TABLE discounts 
-FIELDS TERMINATED BY ',' 
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+-- SELECT * FROM allData;
+-- LOAD DATA INFILE 'c:/tmp/discounts.csv' 
+-- INTO TABLE discounts 
+-- FIELDS TERMINATED BY ',' 
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n'
+-- IGNORE 1 ROWS;

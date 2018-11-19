@@ -25,7 +25,7 @@ module.exports = async (event, context, ) => {
                 Bucket: bucket,
                 Key: 'alliances.csv',
                 ExpressionType: 'SQL',
-                Expression: 'CREATE TABLE alliances (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),lkname VARCHAR(100) NOT NULL,allianceID VARCHAR(100) NOT NULL)',
+                Expression: 'CREATE TABLE alliances (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY (id),lkname VARCHAR(100) NOT NULL,pointsAverage VARCHAR(100) NOT NULL)',
                 InputSerialization: {
                     CSV: {
                         FileHeaderInfo: 'NONE',
