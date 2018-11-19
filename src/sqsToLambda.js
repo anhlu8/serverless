@@ -8,7 +8,9 @@ const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQu
 module.exports = async (event, context) => {
     const receivedParams = {
         QueueUrl: queueUrl,
-        WaitTimeSeconds:5
+        MaxNumberOfMessages: 1,
+        VisibilityTimeout: 20,
+        WaitTimeSeconds:3 // Enable long-polling (3-seconds)
     };
 
     sqs.receiveMessage(receivedParams, function (err, data) {

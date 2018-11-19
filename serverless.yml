@@ -50,6 +50,7 @@ resources:
     MyQueue:
       Type: AWS::SQS::Queue
       Properties:
+        VisibilityTimeout: 60
         QueueName: ${env:SQS_QUEUE_NAME}
 
         
