@@ -1,6 +1,3 @@
-// const fs = require('fs');
-// const strs = require('stringstream');
-// const path = require('path');
 const bucket = process.env.BUCKET_NAME;
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
@@ -39,20 +36,3 @@ module.exports = async (event) => {
     }
   })
 }
-
-  //  This block of code below is to unzip multiple files in a directory
-  // Promise.all(directoryFiles.map(filename => {
-  //     return new Promise((resolve, reject) => {
-  //       const fileContents = fs.createReadStream(`./data/${filename}`);
-  //       const writeStream = fs.createWriteStream(`./data/${filename.slice(0, -3)}`);
-  //       const unzip = zlib.createGunzip();
-  //       fileContents.pipe(unzip).pipe(writeStream).on('finish', (err) => {
-  //         if (err) return reject(err);
-  //         else resolve();
-  //       })
-  //     })
-  //   }))
-  //     .then(console.log('done'));
-  //********/
-  // context.callbackWaitsForEmptyEventLoop = false;
-  // event.Records.forEach(record => {})
