@@ -1,7 +1,6 @@
 const mysql = require('mysql');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
-const Json2csvParser = require('json2csv').Parser;
 const bucket = process.env.BUCKET_NAME;
 
 module.exports = async (event, context, ) => {

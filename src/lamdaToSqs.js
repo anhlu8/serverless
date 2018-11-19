@@ -9,10 +9,6 @@ module.exports = async (event) => {
     const sentParams = {
         MessageBody: "this is message sent",
         QueueUrl: queueUrl,
-        // Attributes: {
-        //     ReceiveMessageWaitTimeSeconds: '20',
-        //     VisibilityTimeout: '60'
-        // }
     };
 
     sqs.sendMessage(sentParams, function (err, data) {
