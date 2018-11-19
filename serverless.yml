@@ -56,37 +56,3 @@ resources:
       Properties:
         VisibilityTimeout: 60
         QueueName: ${env:SQS_QUEUE_NAME}
-
-        
-  # lamdaToSQS:
-  #   handler: src/handler.lamdaToSQS
-  #   description: (Step 2) This lambda function will be triggered by cron at 6:30 pm to send msg to SQS queue
-  #   cron:  
-  #     active: true
-  #     value: '30 18 * * *'
-  #   events: # The "Events" that trigger this function
-  #     - sqs: 
-  #         arn: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
-  #         batchSize: 10
-  # sqsToLambda:
-  #   handler: src/handler.sqsToLambda
-  #   description: SQS message triggers Lambda function (sample function)
-  #   events: 
-  #     - sqs: 
-  #         arn:
-  #           Fn::GetAtt:
-  #             - MyQueue
-  #             - Arn
-  # getZipFile:
-  #   handler: src/file.getZipFile
-  #   description: (Step 2) SQS message will trigger this function to make Ajax calls and save response files in S3
-  #   events:
-  #     - sqs: 
-  #         arn:
-  #           Fn::GetAtt:
-  #             - MyQueue
-  #             - Arn
-
-
-
-

@@ -16,8 +16,6 @@
     "mysql": "^2.16.0",
     "node-fetch": "^2.3.0",
     "path": "^0.12.7",
-    "stringstream": "^1.0.0",
-    "unzipper": "^0.9.4",
     "uuid": "^2.0.3"
   }
 }

@@ -39,7 +39,7 @@ module.exports.deserialize = async (event, context) => {
         })
       };
     })
-    .catch(err => new Error(`Error scraping: ${JSON.stringify(err)}`))
+    .catch(err => new Error(`Error unzip & parse: ${JSON.stringify(err)}`))
 };
 
 //This Lambda function will be triggered by SQS message, then get the JSON file in S3, convert it to CSV file, then connect to RDS MySQL and populate a table
@@ -54,6 +54,6 @@ module.exports.populate = async (event, context) => {
         })
       };
     })
-    .catch(err => new Error(`Error scraping: ${JSON.stringify(err)}`))
+    .catch(err => new Error(`Error mysql: ${JSON.stringify(err)}`))
 };
 
