@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-AWS.config.setPromisesDependency();
+// AWS.config.setPromisesDependency();
 const s3 = new AWS.S3();
 const bucket = process.env.BUCKET_NAME;
 
