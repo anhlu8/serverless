@@ -12,7 +12,7 @@ module.exports = async (event, context, ) => {
         password: process.env.RDS_PASSWORD,
         port: process.env.RDS_PORT,
         ssl: "Amazon RDS",
-        database: process.env.RDS_DATABASE,
+        database: process.env.RDS_DB,
         connectTimeout: 3000,
     });
 

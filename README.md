@@ -5,21 +5,33 @@ These instructions will get you a copy of the project up and running on your loc
 <!-- ### Prerequisites
 You will need to sign up for an AWS account (credit card information will be needed).
 
-### Installing
-A step by step series of examples that tell you how to get a development env running
-Say what the step will be
-```
-Give the example
-```
-And repeat
-```
-until finished
-```
-End with an example of getting some data out of the system or using it for a little demo
+
 ## Test
 Run `sls invoke local -f launch` to invoke the lauch function locally 
 ## Deployment
 Run `sls deploy` to deploy the application. -->
+### Installing
+* Run `yarn init -y`
+* Run `yarn install`
+* Create *.env*:
+```
+MY_AWS_REGION = 
+AWS_PROFILE = 
+AWS_ACCOUNTID = 
+SQS_QUEUE_NAME = 
+RDS_HOSTNAME = 
+RDS_USERNAME = 
+RDS_PASSWORD = 
+RDS_PORT = 
+RDS_DB = 
+LK_ALLIANCE_DATA_URL = 
+LK_PLAYERS_DATA_URL = 
+LK_HABITATS_DATA_URL = 
+BUCKET_NAME = 
+IDENTITY_POOL_ID =
+SLS_DEBUG=*
+```
+* Run `sls deploy`
 ## Built With
 * [Serverless framework](https://serverless.com/) - to replace Express.js
 * [AWS](https://aws.amazon.com/)
