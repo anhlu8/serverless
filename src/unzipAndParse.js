@@ -1,6 +1,7 @@
 const bucket = process.env.BUCKET_NAME;
 const zlib = require('zlib');
 const AWS = require('aws-sdk');
+AWS.config.setPromisesDependency(Promise);
 const s3 = new AWS.S3();
 
 module.exports = async (event) => {
