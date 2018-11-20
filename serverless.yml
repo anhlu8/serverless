@@ -3,7 +3,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  timeout: 60
+  timeout: 300
   profile: ${env:AWS_PROFILE}
   region: ${env:MY_AWS_REGION}
   iamRoleStatements:
@@ -49,5 +49,5 @@ resources:
     MyQueue:
       Type: AWS::SQS::Queue
       Properties:
-        VisibilityTimeout: 60
+        VisibilityTimeout: 300
         QueueName: ${env:SQS_QUEUE_NAME}
