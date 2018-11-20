@@ -1,4 +1,4 @@
-const lkAllianceUrl = process.env.LK_ALLIANCE_DATA_URL;
+const lkAllianceUrl = process.env.LK_ALLIANCE_US1;
 const fetch = require('node-fetch');
 
 module.exports = async () => {
