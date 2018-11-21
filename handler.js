@@ -38,4 +38,10 @@ module.exports.deserialize = async (event, context) => {
     .catch(err => new Error(`Error unzip & parse: ${JSON.stringify(err)}`))
 };
 
+module.exports.graphql = async (event, context) => {
+}; 
+
+module.exports.playground = async (event, context) => {
+}; 
+
 
