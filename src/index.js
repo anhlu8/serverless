@@ -1,6 +1,6 @@
 module.exports = {
-    getFile: require('./getFile'),
-    lamdaToSqs: require('./lamdaToSqs'),
-    saveToS3: require('./saveToS3'),
-    unzipAndParse: require('./unzipAndParse'),
+    getFile: require('./aws/getFile'),
+    lamdaToSqs: require('./aws/lamdaToSqs'),
+    saveToS3: require('./aws/saveToS3'),
+    unzipAndParse: require('./aws/unzipAndParse'),
 }

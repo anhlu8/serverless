@@ -44,6 +44,20 @@ functions:
     description: This function will be triggerred by SQS. Get a .gz file in S3, unzip & parse it to JSON & put the JSON file back in S3.
     events: 
       - sqs: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
+  graphql:
+    handler: handler.graphql
+    events:
+      - http:
+          path: /
+          method: post
+          cors: true
+  playground:
+    handler: handler.playground
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
 resources:
   Resources:
     MyQueue:
