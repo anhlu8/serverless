@@ -8,6 +8,7 @@ const {
 
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
+const s3 = new AWS.S3();
 AWS.config.setPromisesDependency(Promise);
 const awsAccountId = process.env.AWS_ACCOUNTID;
 const sqsQueueName = process.env.SQS_QUEUE_NAME;
@@ -15,11 +16,8 @@ const awsRegion = process.env.MY_AWS_REGION;
 const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQueueName}`;
 const bucket = process.env.BUCKET_NAME;
 const zlib = require('zlib');
-const AWS = require('aws-sdk');
-AWS.config.setPromisesDependency(Promise);
-const s3 = new AWS.S3();
 
-const urls = ['http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/alliances.json.gz', 'http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/players.json.gz', 'http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/habitats.json.gz'];
+
 const name = ['alliances', 'players', 'habitats']
 const worldGame = []
 
