@@ -1,8 +1,8 @@
-const lkAllianceUrl = process.env.LK_ALLIANCE_US1;
+
 const fetch = require('node-fetch');
 
-module.exports = async () => {
-    return fetch(lkAllianceUrl)
+module.exports = async (url) => {
+    return fetch(url)
         .then((response) => {
             if (response.ok) {
                 return response;

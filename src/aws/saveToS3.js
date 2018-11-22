@@ -2,11 +2,12 @@ const AWS = require('aws-sdk');
 AWS.config.setPromisesDependency(Promise);
 const s3 = new AWS.S3();
 const bucket = process.env.BUCKET_NAME;
+const names = ['LKWorldServer-RE-US-1/alliances.json.gz','LKWorldServer-RE-US-1/players.json.gz', 'LKWorldServer-RE-US-1/habitats.json.gz']
 
 module.exports = async (event) => {
     const params = {
         Bucket: bucket,
-        Key: 'alliances.json.gz',
+        Key: ,
         Body: event
     }
 
