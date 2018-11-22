@@ -2,28 +2,37 @@ const AWS = require('aws-sdk');
 AWS.config.setPromisesDependency(Promise);
 const s3 = new AWS.S3();
 const bucket = process.env.BUCKET_NAME;
+const sqs = new AWS.SQS();
+const awsAccountId = process.env.AWS_ACCOUNTID;
+const sqsQueueName = process.env.SQS_QUEUE_NAME;
+const awsRegion = process.env.MY_AWS_REGION;
+const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQueueName}`;
 
 module.exports = async (event) => {
+    const { title, body } = event
     const params = {
         Bucket: bucket,
-        Key: 'alliances.json.gz',
-        Body: event
+        Key: title,
+        Body: body
     }
 
-    const putObjectPromise = s3.putObject(params).promise();
-    await putObjectPromise
-        .then(function (data) {
-            return data;
+    await s3.putObject(params).promise()
+        .then(async () => {
+            const sentParams = {
+                MessageBody: title,
+                QueueUrl: queueUrl,
+            };
+            const putObjectPromise = sqs.sendMessage(sentParams).promise();
+            await putObjectPromise
+                .then(function (data) {
+                    return data.MessageId ;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         })
         .catch(function (err) {
             console.log(err);
         });
 }
-// Simplified Callback Method
-// s3.putObject(params, function (err, data) {
-//     if (err) {
-//         return console.log("Error", err)
-//     }
-//     console.log("Success", data);
-//     return resolve();
-// });
+
