@@ -1,28 +1,20 @@
 'use strict';
 const {
   getFile,
-  lamdaToSqs,
   saveToS3,
-  unzipAndParse,
 } = require('./src');
 
 const AWS = require('aws-sdk');
-const sqs = new AWS.SQS();
 const s3 = new AWS.S3();
 AWS.config.setPromisesDependency(Promise);
-const awsAccountId = process.env.AWS_ACCOUNTID;
-const sqsQueueName = process.env.SQS_QUEUE_NAME;
-const awsRegion = process.env.MY_AWS_REGION;
-const queueUrl = `https://sqs.${awsRegion}.amazonaws.com/${awsAccountId}/${sqsQueueName}`;
 const bucket = process.env.BUCKET_NAME;
-const zlib = require('zlib');
-
-
+const {ungzip} = require('node-gzip');
+//const urls = [] => this will need to be populated.
 const name = ['alliances', 'players', 'habitats']
 const worldGame = []
 
 for (let i = 0; i < urls.length; i++) {
-  const file = name.map(e => {
+  name.map(e => {
     if (urls[i].match(e)) {
       const world = {
         'title': `${Date.now()}-209-${e}`,
@@ -61,51 +53,30 @@ module.exports.launch = async (event, context) => {
 
 //This Lambda function will be triggered by SQS message, then get the unzip file in S3, unzip it and parse it to JSON, and save the new file back to S3
 module.exports.deserialize = async (event, context) => {
-  await sqs.receiveMessage({
-    QueueUrl: queueUrl,
-    AttributeNames: ['All'],
-    MaxNumberOfMessages: '10',
-    VisibilityTimeout: '30',
-    WaitTimeSeconds: '20'
-  }).promise()
-    .then(data => {
-      data.Records.forEach(async record => {
-        const { body } = record;
-        const params = {
+    console.log('message',event.Records[0])
+    let {body} = event.Records[0]
+      const params = {
           Bucket: bucket,
           Key: body,
-        }
-        s3.getObject(params, async function (err, data) {
-          if (err) {
-            return console.log("Error in getObject", err)
-          } else {
-            const { Body } = data;
-            const processUnzippedFile = async (err, decompressed) => {
-              if (err) {
-                console.log("Error in zlib.gunzip");
-              }
-              const asString = decompressed.toString();
-              const sentparams = {
-                Bucket: bucket,
-                Key: `${event}.json`,
-                Body: asString
-              }
-              s3.putObject(sentparams, function (err, data) {
-                if (err) {
-                  return console.log("Error in putObject", err)
-                }
-                return console.log("Success", data);
-              });
-            };
+      }
+      console.log('1', params)
+      let {Body} = await s3.getObject(params).promise();
+      
+      console.log('2', Body);
+      let decompressed = await ungzip(Body);
+      
+      const asString = decompressed.toString();
+      console.log('3', asString);
+      const sentparams = {
+          Bucket: bucket,
+          Key: `${body}.json`,
+          Body: asString
+      }
+      let data = await s3.putObject(sentparams).promise();
+      return console.log("Success", data);
+}
 
-            zlib.gunzip(Body, processUnzippedFile);
 
-          }
-        })
-      });
-    })
-};
 
-module.exports.graphql = async (event, context) => { };
 
-module.exports.playground = async (event, context) => { };
+
