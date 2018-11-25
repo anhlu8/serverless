@@ -83,7 +83,7 @@ module.exports.deserialize = async (event, context) => {
 }
 
 const lambda = new GraphQLServerLambda({
-  typeDefs: path.join(__dirname, './src/graphql-server/schema.graphql'),
+  typeDefs: path.join(__dirname, './src/graphql-server/generated/prisma.graphql'),
   resolvers,
   context: req => ({
       ...req,
