@@ -1,6 +1,8 @@
-# package directories
 node_modules
 jspm_packages
 .env
-# Serverless directories
+dist
+package-lock.json
+.vscode
 .serverless
+.DS_Store

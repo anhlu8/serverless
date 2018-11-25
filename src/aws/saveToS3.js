@@ -1,3 +1,4 @@
+require('dotenv').config()
 const AWS = require('aws-sdk');
 AWS.config.setPromisesDependency(Promise);
 const s3 = new AWS.S3();
