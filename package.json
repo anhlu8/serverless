@@ -5,7 +5,8 @@
   "author": "Anh Lu <anhlu8@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node src/graphql-server/index.js",
+    "start": "sls offline",
+    "deploy": "sls deploy",
     "dev": "npm-run-all --parallel start playground",
     "playground": "graphql playground",
     "prisma": "prisma"

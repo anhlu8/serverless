@@ -5,8 +5,8 @@ endpoint: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
 datamodel: datamodel.graphql
 
 # Seed your service with initial data based on `seed.graphql`.
-seed:
-  import: seed.graphql
+# seed:
+#   import: seed.graphql
 
 # Download the GraphQL schema of the Prisma API into 
 # `src/generated/prisma.graphql` (as specfied in `.graphqlconfig.yml`).
