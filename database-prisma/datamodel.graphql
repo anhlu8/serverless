@@ -4,3 +4,23 @@ type Post {
   title: String!
   text: String!
 }
+
+type Player {
+  id: ID! @unique
+  nickname: String!
+  createdAt: DateTime
+  habitatArray: [Habitat!]!
+}
+
+type Alliance {
+  id: ID! @unique
+  nickname: String!
+  playerArray: [Player!]!
+  castleScore: Float!
+}
+
+type Habitat {
+  id: ID! @unique
+  mapX: Float!
+  mapY: Float!
+}
