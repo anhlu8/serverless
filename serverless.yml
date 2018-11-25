@@ -47,6 +47,7 @@ functions:
       - sqs: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
   graphql:
     handler: handler.server
+    description: This post function will be triggered by API Gateway
     events:
     - http:
         path: /
@@ -54,6 +55,7 @@ functions:
         cors: true
   playground:
     handler: handler.playground
+    description: This get function will be triggered by API Gateway
     events:
     - http:
         path: /

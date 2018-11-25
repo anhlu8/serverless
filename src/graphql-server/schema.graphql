@@ -1,13 +1,19 @@
-# import Post from "./generated/prisma.graphql"
-
-type Query {
-  feed: [Post!]!
-  drafts: [Post!]!
-  post(id: ID!): Post
+type Player {
+  id: ID! @unique
+  nickname: String!
+  creationDate: DateTime!
+  habitatArray: [Habitat!]!
 }
 
-type Mutation {
-  createDraft(title: String!, text: String): Post
-  deletePost(id: ID!): Post
-  publish(id: ID!): Post
+type Alliance {
+  id: ID! @unique
+  nickname: String!
+  playerArray: [Player!]!
+  castleScore: Float!
+}
+
+type Habitat {
+  id: ID! @unique
+  mapX: Float!
+  mapY: Float!
 }

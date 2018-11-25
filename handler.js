@@ -31,7 +31,6 @@ for (let i = 0; i < urls.length; i++) {
   })
 }
 
-//This Lambda function will be triggered by cron, then fetch, download an unzip file and save it to S3.
 module.exports.launch = async (event, context) => {
   for (let i = 0; i < worldGame.length; i++) {
     await getFile(worldGame[i])
@@ -57,7 +56,6 @@ module.exports.launch = async (event, context) => {
 
 };
 
-//This Lambda function will be triggered by SQS message, then get the unzip file in S3, unzip it and parse it to JSON, and save the new file back to S3
 module.exports.deserialize = async (event, context) => {
     console.log('message',event.Records[0])
     let {body} = event.Records[0]
@@ -88,10 +86,8 @@ const lambda = new GraphQLServerLambda({
   context: req => ({
       ...req,
       db: new Prisma({
-          endpoint: process.env.PRISMA_ENDPOINT, // the endpoint of the Prisma DB service (value is set in .env)
-          // secret: process.env.PRISMA_SECRET, // taken from database/prisma.yml (value is set in .env)
-          debug: true, // log all GraphQL queries & mutations
-          // secret: 'mysecret123',                 // only needed if specified in `database/prisma.yml`
+          endpoint: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev',
+          debug: true, 
       }),
   }),
 });
