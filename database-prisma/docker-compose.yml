@@ -10,22 +10,21 @@ services:
     environment:
       PRISMA_CONFIG: |
         port: 4400
-        # uncomment the next line and provide the env var PRISMA_MANAGEMENT_API_SECRET=my-secret to activate cluster security
-        managementApiSecret: redqueen
+        managementApiSecret: ${env:PRISMA_MANAGEMENT_API_SECRET}
         databases:
           default:
             connector: mysql
-            host: lkredqueendb.cpyyl4afku4h.us-east-1.rds.amazonaws.com
-            port: 3306
-            user: redqueen
-            password: redqueen
+            host: ${env:RDS_HOSTNAME}
+            port: ${env:RDS_PORT}
+            user: ${env:RDS_USERNAME}
+            password: ${env:RDS_PASSWORD}
             migrations: true
             rawAccess: true
   mysql:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: prisma
+      MYSQL_ROOT_PASSWORD: ${env:MYSQL_ROOT_PASSWORD}
     volumes:
       - mysql:/var/lib/mysql
 volumes:
