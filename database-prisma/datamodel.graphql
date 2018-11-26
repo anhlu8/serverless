@@ -1,14 +1,14 @@
 type Player {
   id: ID! @unique
   nickname: String!
-  creattionDate: DateTime
-  habitatArray: [Habitat!]!
+  creationDate: DateTime
+  habitatArray: [Habitat!]! @relation(name: "HabitatToPlayer", onDelete: CASCADE)
 }
 
 type Alliance {
   id: ID! @unique
   nickname: String!
-  playerArray: [Player!]!
+  playerArray: [Player!]! @relation(name: "PlayerToAlliance", onDelete:  SET_NULL)
   castleScore: Float!
 }
 

@@ -63,14 +63,9 @@ module.exports.deserialize = async (event, context) => {
           Bucket: bucket,
           Key: body,
       }
-      console.log('1', params)
       let {Body} = await s3.getObject(params).promise();
-      
-      console.log('2', Body);
       let decompressed = await ungzip(Body);
-      
       const asString = decompressed.toString();
-      console.log('3', asString);
       const sentparams = {
           Bucket: bucket,
           Key: `${body}.json`,

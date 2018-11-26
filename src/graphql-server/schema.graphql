@@ -7,9 +7,6 @@ type Mutation{
   createPlayer(id: ID!, nickname: String!, creationDate: DateTime!, habitatArray: [Habitat!]!): Player!
   updatePlayer(id: ID, nickname: String, creationDate: DateTime, habitatArray: [Habitat]): Player
   deletePlayer(id: ID!): Player
-  # upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
-  # updateManyPlayers(data: PlayerUpdateInput!, where: PlayerWhereInput!): BatchPayload!
-  # deleteManyPlayers(where: PlayerWhereInput!): BatchPayload!
 }
 
 type Player {
