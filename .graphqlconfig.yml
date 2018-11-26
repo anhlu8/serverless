@@ -1,0 +1,10 @@
+projects:
+  app:
+    schemaPath: src/graphql-server/schema.graphql
+    extensions:
+      endpoints:
+        default: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
+  database:
+    schemaPath: src/graphql-server/generated/prisma.graphql
+    extensions:
+      prisma: database-prisma/prisma.yml

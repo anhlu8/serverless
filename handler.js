@@ -1,8 +1,14 @@
 'use strict';
+require('dotenv').config()
 const {
   getFile,
   saveToS3,
+  resolvers
 } = require('./src');
+
+const { GraphQLServerLambda } = require('graphql-yoga');
+const { Prisma } = require('prisma-binding');
+const path = require('path');
 
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
@@ -25,7 +31,6 @@ for (let i = 0; i < urls.length; i++) {
   })
 }
 
-//This Lambda function will be triggered by cron, then fetch, download an unzip file and save it to S3.
 module.exports.launch = async (event, context) => {
   for (let i = 0; i < worldGame.length; i++) {
     await getFile(worldGame[i])
@@ -51,7 +56,6 @@ module.exports.launch = async (event, context) => {
 
 };
 
-//This Lambda function will be triggered by SQS message, then get the unzip file in S3, unzip it and parse it to JSON, and save the new file back to S3
 module.exports.deserialize = async (event, context) => {
     console.log('message',event.Records[0])
     let {body} = event.Records[0]
@@ -75,6 +79,21 @@ module.exports.deserialize = async (event, context) => {
       let data = await s3.putObject(sentparams).promise();
       return console.log("Success", data);
 }
+
+const lambda = new GraphQLServerLambda({
+  typeDefs: path.join(__dirname, 'src/graphql-server/generated/prisma.graphql'),
+  resolvers,
+  context: req => ({
+      ...req,
+      db: new Prisma({
+          endpoint: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev',
+          debug: true, 
+      }),
+  }),
+});
+
+exports.server = lambda.graphqlHandler
+exports.playground = lambda.playgroundHandler
 
 
 

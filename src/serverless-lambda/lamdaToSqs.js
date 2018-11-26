@@ -1,3 +1,4 @@
+require('dotenv').config()
 const AWS = require('aws-sdk');
 const sqs = new AWS.SQS();
 AWS.config.setPromisesDependency(Promise);
