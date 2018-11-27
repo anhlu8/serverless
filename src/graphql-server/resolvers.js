@@ -6,41 +6,41 @@ const bucket = process.env.BUCKET_NAME;
 
 const resolvers = {
     Query: {
-        getPlayers(parent, args, { prisma }, info) {
+        players(parent, args, { prisma }, info) {
             return prisma.players();
         },
-        getPlayer(parent, {id}, { prisma }, info){
+        player(parent, {id}, { prisma }, info){
             return prisma.player({id})
         }
     },
-    Mutation: {
-        async createPlayer(parent, arg, { prisma, worldGame }, info) {
-            return worldGame.map(async world => {
-                if (world.titleJson.includes("players")) {
-                    let params = {
-                        Bucket: bucket,
-                        Key: world.titleJson,
-                    };
-                    let returnedObject = await s3.getObject(params).promise();
-                    let playerList = await JSON.parse(Buffer.from(returnedObject.Body).toString("utf8"));
-                    console.log("1");
-                    let newPlayer = await playerList.map(async player => {
-                        const player = await prisma.mutation.createPlayer({
-                            data: {
-                                id: player.id,
-                                nickname: player.nick,
-                                habitatArray: player.habitatIDs
-                            }
-                        });
-                        return player;
-                    })
+    // Mutation: {
+    //     async createPlayer(parent, arg, { prisma, worldGame }, info) {
+    //         return worldGame.map(async world => {
+    //             if (world.titleJson.includes("players")) {
+    //                 let params = {
+    //                     Bucket: bucket,
+    //                     Key: world.titleJson,
+    //                 };
+    //                 let returnedObject = await s3.getObject(params).promise();
+    //                 let playerList = await JSON.parse(Buffer.from(returnedObject.Body).toString("utf8"));
+    //                 console.log("1");
+    //                 let newPlayer = await playerList.map(async player => {
+    //                     const player = await prisma.mutation.createPlayer({
+    //                         data: {
+    //                             id: player.id,
+    //                             nickname: player.nick,
+    //                             habitatArray: player.habitatIDs
+    //                         }
+    //                     });
+    //                     return player;
+    //                 })
 
-                    return newPlayer;
+    //                 return newPlayer;
 
-                }
-            })
-        }
-    }
+    //             }
+    //         })
+    //     }
+    // }
 
 }
 

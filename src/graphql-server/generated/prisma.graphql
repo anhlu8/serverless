@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
-# timestamp: Tue Nov 27 2018 01:04:34 GMT-0500 (Eastern Standard Time)
+# timestamp: Tue Nov 27 2018 14:00:18 GMT-0500 (Eastern Standard Time)
 
 type AggregateAlliance {
   count: Int!

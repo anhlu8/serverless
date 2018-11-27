@@ -4,13 +4,13 @@
 type Player {
   id: ID! @unique
   nickname: String!
-  habitatArray: [Habitat!]! @relation(name: "HabitatToPlayer", onDelete: SET_NULL)
+  habitatArray: [Habitat!]!
 }
 
 type Alliance {
   id: ID! @unique
   nickname: String!
-  playerArray: [Player!]! @relation(name: "PlayerToAlliance", onDelete:  SET_NULL)
+  playerArray: [Player!]!
   castleScore: Float!
 }
 

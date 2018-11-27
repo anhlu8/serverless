@@ -5,7 +5,7 @@ projects:
       endpoints:
         default: http://localhost:4000
   database: # This is Prisma API layer, the schema of for this layer is automatically generated based on datamodel.graphql
-    schemaPath: database-prisma/datamodel.graphql
+    schemaPath: src/graphql-server/generated/prisma.graphql
     extensions:
       prisma: database-prisma/prisma.yml
 

@@ -1,21 +1,20 @@
 # The schema.graphql file (not the same intention as datamodel.graphql) defines the type definitions for our Node GraphQL API. 
 # These are the resolvers we want to expose through the Node app.
 
+
 type Query{
-  getPlayers(query: String): [Player!]!
-  getPlayer(id: ID!): Player!
-  getAlliances(query: String): [Alliance!]!
-  getAlliance(id: ID!): Alliance!
-  getHabitats(query: String): [Habitat!]!
-  getHabitat(id: ID!): Habitat!
+  players: [Player!]!
+  player(id: ID!): Player!
+  alliances: [Alliance!]!
+  alliance(id: ID!): Alliance!
+  habitats: [Habitat!]!
+  habitat(id: ID!): Habitat!
 }
 
 type Mutation{
-  createPlayer(data: CreatePlayerInput): Player!
-  # updatePlayer(id: ID, nickname: String, creationDate: DateTime, habitatArray: [Habitat]): Player
-  # deletePlayer(id: ID!): Player
-  createAlliance(data: CreateAllianceInput): Alliance!
-  createHabitat(data: CreateHabitatInput): Habitat!
+  createPlayer(data: CreatePlayerInput): Player
+  createAlliance(data: CreateAllianceInput): Alliance
+  createHabitat(data: CreateHabitatInput): Habitat
 }
 
 input CreatePlayerInput {
