@@ -1,19 +1,40 @@
+# The schema.graphql file (not the same intention as datamodel.graphql) defines the type definitions for our Node GraphQL API. 
+# These are the resolvers we want to expose through the Node app.
+
 type Query{
-  getPlayers: Player!
-  getPlayer:Player!
+  getPlayers(query: String): [Player!]!
+  getPlayer(id: ID!): Player!
+  getAlliances(query: String): [Alliance!]!
+  getAlliance(id: ID!): Alliance!
+  getHabitats(query: String): [Habitat!]!
+  getHabitat(id: ID!): Habitat!
 }
 
 type Mutation{
-  createPlayer(id: ID!, nickname: String!, creationDate: DateTime!, habitatArray: [Habitat!]!): Player!
-  updatePlayer(id: ID, nickname: String, creationDate: DateTime, habitatArray: [Habitat]): Player
-  deletePlayer(id: ID!): Player
+  createPlayer(data: CreatePlayerInput): Player!
+  # updatePlayer(id: ID, nickname: String, creationDate: DateTime, habitatArray: [Habitat]): Player
+  # deletePlayer(id: ID!): Player
+  createAlliance(data: CreateAllianceInput): Alliance!
+  createHabitat(data: CreateHabitatInput): Habitat!
+}
+
+input CreatePlayerInput {
+  id: ID!
+  nickname: String!
+  habitatArray: [Habitat!]!
 }
 
 type Player {
   id: ID! @unique
   nickname: String!
-  creationDate: DateTime!
   habitatArray: [Habitat!]!
+}
+
+input CreateAllianceInput {
+  id: ID! @unique
+  nickname: String!
+  playerArray: [Player!]!
+  castleScore: Float!
 }
 
 type Alliance {
@@ -23,8 +44,20 @@ type Alliance {
   castleScore: Float!
 }
 
+input CreateHabitatInput {
+  id: ID! @unique
+  mapX: Float!
+  mapY: Float!
+}
+
 type Habitat {
   id: ID! @unique
   mapX: Float!
   mapY: Float!
+}
+
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
 }

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
-# timestamp: Sun Nov 25 2018 20:39:49 GMT-0500 (Eastern Standard Time)
+# timestamp: Tue Nov 27 2018 01:04:34 GMT-0500 (Eastern Standard Time)
 
 type AggregateAlliance {
   count: Int!
@@ -238,8 +238,6 @@ type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
 }
-
-scalar DateTime
 
 type Habitat implements Node {
   id: ID!
@@ -632,7 +630,6 @@ type PageInfo {
 type Player implements Node {
   id: ID!
   nickname: String!
-  creattionDate: DateTime
   habitatArray(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
 }
 
@@ -648,7 +645,6 @@ type PlayerConnection {
 
 input PlayerCreateInput {
   nickname: String!
-  creattionDate: DateTime
   habitatArray: HabitatCreateManyInput
 }
 
@@ -671,8 +667,6 @@ enum PlayerOrderByInput {
   id_DESC
   nickname_ASC
   nickname_DESC
-  creattionDate_ASC
-  creattionDate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -682,7 +676,6 @@ enum PlayerOrderByInput {
 type PlayerPreviousValues {
   id: ID!
   nickname: String!
-  creattionDate: DateTime
 }
 
 input PlayerScalarWhereInput {
@@ -774,28 +767,6 @@ input PlayerScalarWhereInput {
 
   """All values not ending with the given string."""
   nickname_not_ends_with: String
-  creattionDate: DateTime
-
-  """All values that are not equal to given value."""
-  creattionDate_not: DateTime
-
-  """All values that are contained in given list."""
-  creattionDate_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  creattionDate_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  creattionDate_lt: DateTime
-
-  """All values less than or equal the given value."""
-  creattionDate_lte: DateTime
-
-  """All values greater than the given value."""
-  creattionDate_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  creattionDate_gte: DateTime
 }
 
 type PlayerSubscriptionPayload {
@@ -839,19 +810,16 @@ input PlayerSubscriptionWhereInput {
 
 input PlayerUpdateDataInput {
   nickname: String
-  creattionDate: DateTime
   habitatArray: HabitatUpdateManyInput
 }
 
 input PlayerUpdateInput {
   nickname: String
-  creattionDate: DateTime
   habitatArray: HabitatUpdateManyInput
 }
 
 input PlayerUpdateManyDataInput {
   nickname: String
-  creattionDate: DateTime
 }
 
 input PlayerUpdateManyInput {
@@ -867,7 +835,6 @@ input PlayerUpdateManyInput {
 
 input PlayerUpdateManyMutationInput {
   nickname: String
-  creattionDate: DateTime
 }
 
 input PlayerUpdateManyWithWhereNestedInput {
@@ -975,28 +942,6 @@ input PlayerWhereInput {
 
   """All values not ending with the given string."""
   nickname_not_ends_with: String
-  creattionDate: DateTime
-
-  """All values that are not equal to given value."""
-  creattionDate_not: DateTime
-
-  """All values that are contained in given list."""
-  creattionDate_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  creattionDate_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  creattionDate_lt: DateTime
-
-  """All values less than or equal the given value."""
-  creattionDate_lte: DateTime
-
-  """All values greater than the given value."""
-  creattionDate_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  creattionDate_gte: DateTime
   habitatArray_every: HabitatWhereInput
   habitatArray_some: HabitatWhereInput
   habitatArray_none: HabitatWhereInput

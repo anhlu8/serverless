@@ -6,7 +6,7 @@ const {
   resolvers
 } = require('./src');
 
-const { GraphQLServerLambda } = require('graphql-yoga');
+const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const path = require('path');
 
@@ -14,8 +14,9 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 AWS.config.setPromisesDependency(Promise);
 const bucket = process.env.BUCKET_NAME;
-const {ungzip} = require('node-gzip');
+const { ungzip } = require('node-gzip');
 //const urls = [] => this will need to be populated.
+const urls = ['http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/alliances.json.gz', 'http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/players.json.gz', 'http://public-data.lordsandknights.com/LKWorldServer-RE-US-1/habitats.json.gz'];
 const name = ['alliances', 'players', 'habitats']
 const worldGame = []
 
@@ -24,6 +25,7 @@ for (let i = 0; i < urls.length; i++) {
     if (urls[i].match(e)) {
       const world = {
         'title': `${Date.now()}-209-${e}`,
+        'titleJson': `${Date.now()}-209-${e}.json`,
         'url': urls[i]
       };
       worldGame.push(world);
@@ -31,64 +33,69 @@ for (let i = 0; i < urls.length; i++) {
   })
 }
 
-module.exports.launch = async (event, context) => {
-  for (let i = 0; i < worldGame.length; i++) {
-    await getFile(worldGame[i])
-      .then(async res => {
-        const buffering = await res.body.buffer()
-        const buffered = await {
-          'title': res.title,
-          'body': buffering
-        }
-        return buffered;
-      })
-      .then(res => saveToS3(res))
-      .then(() => {
-        return {
-          statusCode: 200,
-          body: JSON.stringify({
-            message: 'Your function executed successfully!',
-          })
-        };
-      })
-      .catch(err => new Error(`Error scraping: ${JSON.stringify(err)}`))
-  }
+// module.exports.launch = async (event, context) => {
+//   for (let i = 0; i < worldGame.length; i++) {
+//     await getFile(worldGame[i])
+//       .then(async res => {
+//         const buffering = await res.body.buffer()
+//         const buffered = await {
+//           'title': res.title,
+//           'body': buffering
+//         }
+//         return buffered;
+//       })
+//       .then(res => saveToS3(res))
+//       .then(() => {
+//         return {
+//           statusCode: 200,
+//           body: JSON.stringify({
+//             message: 'Your function executed successfully!',
+//           })
+//         };
+//       })
+//       .catch(err => new Error(`Error scraping: ${JSON.stringify(err)}`))
+//   }
 
-};
+// };
 
-module.exports.deserialize = async (event, context) => {
-    console.log('message',event.Records[0])
-    let {body} = event.Records[0]
-      const params = {
-          Bucket: bucket,
-          Key: body,
-      }
-      let {Body} = await s3.getObject(params).promise();
-      let decompressed = await ungzip(Body);
-      const asString = decompressed.toString();
-      const sentparams = {
-          Bucket: bucket,
-          Key: `${body}.json`,
-          Body: asString
-      }
-      let data = await s3.putObject(sentparams).promise();
-      return console.log("Success", data);
-}
+// module.exports.deserialize = async (event, context) => {
+//   console.log('message', event.Records[0])
+//   let { body } = event.Records[0]
+//   const params = {
+//     Bucket: bucket,
+//     Key: body,
+//   }
+//   let { Body } = await s3.getObject(params).promise();
+//   let decompressed = await ungzip(Body);
+//   const asString = decompressed.toString();
+//   const sentparams = {
+//     Bucket: bucket,
+//     Key: `${body}.json`,
+//     Body: asString
+//   }
+//   let data = await s3.putObject(sentparams).promise();
+//   return console.log("Success", data);
+// }
 
-const lambda = new GraphQLServerLambda({
+const server = new GraphQLServer({
   typeDefs: path.join(__dirname, 'src/graphql-server/generated/prisma.graphql'),
   resolvers,
-  context: req => ({
+  context(req) {
+    return {
       ...req,
-      db: new Prisma({
-          endpoint: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev',
-          debug: true, 
+      worldGame: worldGame,
+      prisma: new Prisma({
+        typeDefs: path.join(__dirname, 'src/graphql-server/generated/prisma.graphql'),
+        endpoint: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev', //This is Prisma API (same endpoint in prisma.yml)
+        debug: true,
       }),
-  }),
+    }
+  },
 });
 
-exports.server = lambda.graphqlHandler
-exports.playground = lambda.playgroundHandler
+server.start({ port: process.env.PORT || 4000 }, () => {
+  console.log('The server is up!')
+})
 
 
 

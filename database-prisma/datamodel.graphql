@@ -1,8 +1,10 @@
+# The datamodel.graphql (in this folder) is only meant for Prisma. 
+# It's a migration file that builds database tables and creates the relations.
+
 type Player {
   id: ID! @unique
   nickname: String!
-  creationDate: DateTime
-  habitatArray: [Habitat!]! @relation(name: "HabitatToPlayer", onDelete: CASCADE)
+  habitatArray: [Habitat!]! @relation(name: "HabitatToPlayer", onDelete: SET_NULL)
 }
 
 type Alliance {

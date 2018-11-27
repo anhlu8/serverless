@@ -1,5 +1,6 @@
 endpoint: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
 datamodel: datamodel.graphql
+# secret: secretRQ
 hooks:
   post-deploy:
     - graphql get-schema --project database
