@@ -1,13 +1,13 @@
 projects:
   app: # This is GraphQL API layer
-    schemaPath: src/graphql-server/schema.graphql
+    schemaPath: ./src/graphql-server/schema.graphql
     extensions:
       endpoints:
         default: http://localhost:4000
   database: # This is Prisma API layer, the schema of for this layer is automatically generated based on datamodel.graphql
-    schemaPath: src/graphql-server/generated/prisma.graphql
+    schemaPath: ./src/graphql-server/generated/prisma.graphql
     extensions:
-      prisma: database-prisma/prisma.yml
+      prisma: ./database-prisma/prisma.yml
 
 # The command `prisma deploy` will take the schema from datamodel.graphql, deploy it 
 # and then generate prisma.graphql in the generated folder for Graphql.

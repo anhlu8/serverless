@@ -7,10 +7,10 @@ const bucket = process.env.BUCKET_NAME;
 const resolvers = {
     Query: {
         players(parent, args, { prisma }, info) {
-            return prisma.players();
+            return prisma.query.players({}, info);
         },
         player(parent, {id}, { prisma }, info){
-            return prisma.player({id})
+            return prisma.query.player({id}, info);
         }
     },
     Mutation: {
