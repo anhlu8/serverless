@@ -14,7 +14,7 @@ const resolvers = {
         }
     },
     Mutation: {
-        async createPlayer(parent, { id, nickname, habitat }, { prisma }, info) {
+        async createPlayer(parent, { id, nickname, habitat }, { prisma, db }, info) {
             return prisma.mutation.createPlayer(
                 {
                     data: {
