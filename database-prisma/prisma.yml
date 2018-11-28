@@ -6,6 +6,7 @@ generate:
     output: ../src/graphql-server/generated/
 hooks:
   post-deploy:
+    - graphql prepare
     - graphql get-schema --project database
     - prisma generate
-    - graphql prepare
+    

@@ -20,43 +20,37 @@ type Mutation{
 input CreatePlayerInput {
   id: ID!
   nickname: String!
-  habitatArray: [Habitat!]!
+  habitatArray: String!
 }
 
 type Player {
-  id: ID! @unique
+  id: ID! 
   nickname: String!
   habitatArray: [Habitat!]!
 }
 
 input CreateAllianceInput {
-  id: ID! @unique
+  id: ID!
   nickname: String!
-  playerArray: [Player!]!
+  playerArray: String!
   castleScore: Float!
 }
 
 type Alliance {
-  id: ID! @unique
+  id: ID!
   nickname: String!
   playerArray: [Player!]!
   castleScore: Float!
 }
 
 input CreateHabitatInput {
-  id: ID! @unique
+  id: ID!
   mapX: Float!
   mapY: Float!
 }
 
 type Habitat {
-  id: ID! @unique
+  id: ID!
   mapX: Float!
   mapY: Float!
-}
-
-enum MutationType {
-    CREATED
-    UPDATED
-    DELETED
 }
