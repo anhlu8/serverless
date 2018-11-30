@@ -1,7 +1,7 @@
 const resolvers = {
     Query: {
         players(parent, args, { prisma }, info) {
-            return prisma.query.players({}, info);
+            return prisma.query.players(null, info);
         },
         player(parent, { id }, { prisma }, info) {
             return prisma.query.player({ id }, info);
@@ -24,3 +24,17 @@ const resolvers = {
 };
 
 module.exports = resolvers;
+
+// mutation{
+//     createPlayer(data:{
+//       nickname: "Anh"
+//       habitatArray:{
+//         create: {
+//           mapX:100
+//             mapY:200
+//         }
+//       }
+//     }){
+//       nickname
+//     }
+//   }

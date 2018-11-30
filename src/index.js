@@ -4,5 +4,6 @@ module.exports = {
     saveToS3: require('./serverless-lambda/saveToS3'),
     unzipAndParse: require('./serverless-lambda/unzipAndParse'),
     resolvers: require('./graphql-server/resolvers'),
-    worldGame: require('./serverless-lambda/worldGame')
+    worldGame: require('./serverless-lambda/worldGame'),
+    jsonArrs: require('./serverless-lambda/jsonArrs')
 }
