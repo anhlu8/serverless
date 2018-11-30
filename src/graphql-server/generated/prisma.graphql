@@ -1,0 +1,470 @@
+type AggregateAlliance {
+  count: Int!
+}
+
+type AggregateHabitat {
+  count: Int!
+}
+
+type AggregatePlayer {
+  count: Int!
+}
+
+type Alliance {
+  id: ID!
+  nickname: String!
+  playerArray(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
+  castleScore: Float!
+}
+
+type AllianceConnection {
+  pageInfo: PageInfo!
+  edges: [AllianceEdge]!
+  aggregate: AggregateAlliance!
+}
+
+input AllianceCreateInput {
+  nickname: String!
+  playerArray: PlayerCreateManyInput
+  castleScore: Float!
+}
+
+type AllianceEdge {
+  node: Alliance!
+  cursor: String!
+}
+
+enum AllianceOrderByInput {
+  id_ASC
+  id_DESC
+  nickname_ASC
+  nickname_DESC
+  castleScore_ASC
+  castleScore_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AlliancePreviousValues {
+  id: ID!
+  nickname: String!
+  castleScore: Float!
+}
+
+type AllianceSubscriptionPayload {
+  mutation: MutationType!
+  node: Alliance
+  updatedFields: [String!]
+  previousValues: AlliancePreviousValues
+}
+
+input AllianceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AllianceWhereInput
+  AND: [AllianceSubscriptionWhereInput!]
+  OR: [AllianceSubscriptionWhereInput!]
+  NOT: [AllianceSubscriptionWhereInput!]
+}
+
+input AllianceUpdateInput {
+  nickname: String
+  playerArray: PlayerUpdateManyInput
+  castleScore: Float
+}
+
+input AllianceUpdateManyMutationInput {
+  nickname: String
+  castleScore: Float
+}
+
+input AllianceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nickname: String
+  nickname_not: String
+  nickname_in: [String!]
+  nickname_not_in: [String!]
+  nickname_lt: String
+  nickname_lte: String
+  nickname_gt: String
+  nickname_gte: String
+  nickname_contains: String
+  nickname_not_contains: String
+  nickname_starts_with: String
+  nickname_not_starts_with: String
+  nickname_ends_with: String
+  nickname_not_ends_with: String
+  playerArray_every: PlayerWhereInput
+  playerArray_some: PlayerWhereInput
+  playerArray_none: PlayerWhereInput
+  castleScore: Float
+  castleScore_not: Float
+  castleScore_in: [Float!]
+  castleScore_not_in: [Float!]
+  castleScore_lt: Float
+  castleScore_lte: Float
+  castleScore_gt: Float
+  castleScore_gte: Float
+  AND: [AllianceWhereInput!]
+  OR: [AllianceWhereInput!]
+  NOT: [AllianceWhereInput!]
+}
+
+input AllianceWhereUniqueInput {
+  id: ID
+}
+
+type BatchPayload {
+  count: Long!
+}
+
+type Habitat {
+  id: ID!
+  mapX: Float!
+  mapY: Float!
+}
+
+type HabitatConnection {
+  pageInfo: PageInfo!
+  edges: [HabitatEdge]!
+  aggregate: AggregateHabitat!
+}
+
+input HabitatCreateInput {
+  mapX: Float!
+  mapY: Float!
+}
+
+input HabitatCreateManyInput {
+  create: [HabitatCreateInput!]
+  connect: [HabitatWhereUniqueInput!]
+}
+
+type HabitatEdge {
+  node: Habitat!
+  cursor: String!
+}
+
+enum HabitatOrderByInput {
+  id_ASC
+  id_DESC
+  mapX_ASC
+  mapX_DESC
+  mapY_ASC
+  mapY_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type HabitatPreviousValues {
+  id: ID!
+  mapX: Float!
+  mapY: Float!
+}
+
+type HabitatSubscriptionPayload {
+  mutation: MutationType!
+  node: Habitat
+  updatedFields: [String!]
+  previousValues: HabitatPreviousValues
+}
+
+input HabitatSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HabitatWhereInput
+  AND: [HabitatSubscriptionWhereInput!]
+  OR: [HabitatSubscriptionWhereInput!]
+  NOT: [HabitatSubscriptionWhereInput!]
+}
+
+input HabitatUpdateDataInput {
+  mapX: Float
+  mapY: Float
+}
+
+input HabitatUpdateInput {
+  mapX: Float
+  mapY: Float
+}
+
+input HabitatUpdateManyInput {
+  create: [HabitatCreateInput!]
+  update: [HabitatUpdateWithWhereUniqueNestedInput!]
+  upsert: [HabitatUpsertWithWhereUniqueNestedInput!]
+  delete: [HabitatWhereUniqueInput!]
+  connect: [HabitatWhereUniqueInput!]
+  disconnect: [HabitatWhereUniqueInput!]
+}
+
+input HabitatUpdateManyMutationInput {
+  mapX: Float
+  mapY: Float
+}
+
+input HabitatUpdateWithWhereUniqueNestedInput {
+  where: HabitatWhereUniqueInput!
+  data: HabitatUpdateDataInput!
+}
+
+input HabitatUpsertWithWhereUniqueNestedInput {
+  where: HabitatWhereUniqueInput!
+  update: HabitatUpdateDataInput!
+  create: HabitatCreateInput!
+}
+
+input HabitatWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  mapX: Float
+  mapX_not: Float
+  mapX_in: [Float!]
+  mapX_not_in: [Float!]
+  mapX_lt: Float
+  mapX_lte: Float
+  mapX_gt: Float
+  mapX_gte: Float
+  mapY: Float
+  mapY_not: Float
+  mapY_in: [Float!]
+  mapY_not_in: [Float!]
+  mapY_lt: Float
+  mapY_lte: Float
+  mapY_gt: Float
+  mapY_gte: Float
+  AND: [HabitatWhereInput!]
+  OR: [HabitatWhereInput!]
+  NOT: [HabitatWhereInput!]
+}
+
+input HabitatWhereUniqueInput {
+  id: ID
+}
+
+scalar Long
+
+type Mutation {
+  createAlliance(data: AllianceCreateInput!): Alliance!
+  updateAlliance(data: AllianceUpdateInput!, where: AllianceWhereUniqueInput!): Alliance
+  updateManyAlliances(data: AllianceUpdateManyMutationInput!, where: AllianceWhereInput): BatchPayload!
+  upsertAlliance(where: AllianceWhereUniqueInput!, create: AllianceCreateInput!, update: AllianceUpdateInput!): Alliance!
+  deleteAlliance(where: AllianceWhereUniqueInput!): Alliance
+  deleteManyAlliances(where: AllianceWhereInput): BatchPayload!
+  createHabitat(data: HabitatCreateInput!): Habitat!
+  updateHabitat(data: HabitatUpdateInput!, where: HabitatWhereUniqueInput!): Habitat
+  updateManyHabitats(data: HabitatUpdateManyMutationInput!, where: HabitatWhereInput): BatchPayload!
+  upsertHabitat(where: HabitatWhereUniqueInput!, create: HabitatCreateInput!, update: HabitatUpdateInput!): Habitat!
+  deleteHabitat(where: HabitatWhereUniqueInput!): Habitat
+  deleteManyHabitats(where: HabitatWhereInput): BatchPayload!
+  createPlayer(data: PlayerCreateInput!): Player!
+  updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player
+  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
+  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  deletePlayer(where: PlayerWhereUniqueInput!): Player
+  deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Player {
+  id: ID!
+  nickname: String!
+  habitatArray(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
+}
+
+type PlayerConnection {
+  pageInfo: PageInfo!
+  edges: [PlayerEdge]!
+  aggregate: AggregatePlayer!
+}
+
+input PlayerCreateInput {
+  nickname: String!
+  habitatArray: HabitatCreateManyInput
+}
+
+input PlayerCreateManyInput {
+  create: [PlayerCreateInput!]
+  connect: [PlayerWhereUniqueInput!]
+}
+
+type PlayerEdge {
+  node: Player!
+  cursor: String!
+}
+
+enum PlayerOrderByInput {
+  id_ASC
+  id_DESC
+  nickname_ASC
+  nickname_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PlayerPreviousValues {
+  id: ID!
+  nickname: String!
+}
+
+type PlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: Player
+  updatedFields: [String!]
+  previousValues: PlayerPreviousValues
+}
+
+input PlayerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PlayerWhereInput
+  AND: [PlayerSubscriptionWhereInput!]
+  OR: [PlayerSubscriptionWhereInput!]
+  NOT: [PlayerSubscriptionWhereInput!]
+}
+
+input PlayerUpdateDataInput {
+  nickname: String
+  habitatArray: HabitatUpdateManyInput
+}
+
+input PlayerUpdateInput {
+  nickname: String
+  habitatArray: HabitatUpdateManyInput
+}
+
+input PlayerUpdateManyInput {
+  create: [PlayerCreateInput!]
+  update: [PlayerUpdateWithWhereUniqueNestedInput!]
+  upsert: [PlayerUpsertWithWhereUniqueNestedInput!]
+  delete: [PlayerWhereUniqueInput!]
+  connect: [PlayerWhereUniqueInput!]
+  disconnect: [PlayerWhereUniqueInput!]
+}
+
+input PlayerUpdateManyMutationInput {
+  nickname: String
+}
+
+input PlayerUpdateWithWhereUniqueNestedInput {
+  where: PlayerWhereUniqueInput!
+  data: PlayerUpdateDataInput!
+}
+
+input PlayerUpsertWithWhereUniqueNestedInput {
+  where: PlayerWhereUniqueInput!
+  update: PlayerUpdateDataInput!
+  create: PlayerCreateInput!
+}
+
+input PlayerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nickname: String
+  nickname_not: String
+  nickname_in: [String!]
+  nickname_not_in: [String!]
+  nickname_lt: String
+  nickname_lte: String
+  nickname_gt: String
+  nickname_gte: String
+  nickname_contains: String
+  nickname_not_contains: String
+  nickname_starts_with: String
+  nickname_not_starts_with: String
+  nickname_ends_with: String
+  nickname_not_ends_with: String
+  habitatArray_every: HabitatWhereInput
+  habitatArray_some: HabitatWhereInput
+  habitatArray_none: HabitatWhereInput
+  AND: [PlayerWhereInput!]
+  OR: [PlayerWhereInput!]
+  NOT: [PlayerWhereInput!]
+}
+
+input PlayerWhereUniqueInput {
+  id: ID
+}
+
+type Query {
+  alliance(where: AllianceWhereUniqueInput!): Alliance
+  alliances(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Alliance]!
+  alliancesConnection(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AllianceConnection!
+  habitat(where: HabitatWhereUniqueInput!): Habitat
+  habitats(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat]!
+  habitatsConnection(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HabitatConnection!
+  player(where: PlayerWhereUniqueInput!): Player
+  players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
+  playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
+  node(id: ID!): Node
+}
+
+type Subscription {
+  alliance(where: AllianceSubscriptionWhereInput): AllianceSubscriptionPayload
+  habitat(where: HabitatSubscriptionWhereInput): HabitatSubscriptionPayload
+  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
+}

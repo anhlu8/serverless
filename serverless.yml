@@ -3,7 +3,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: dev
-  timeout: 300
+  timeout: 30
   profile: ${env:AWS_PROFILE}
   region: ${env:MY_AWS_REGION}
   iamRoleStatements:
@@ -24,7 +24,6 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-sqs-alarms-plugin
   - serverless-offline
-  - npm-run-all
 package:
   excludeDevDependencies: false
   include:
@@ -45,26 +44,10 @@ functions:
     description: This function will be triggerred by SQS. Get a .gz file in S3, unzip & parse it to JSON & put the JSON file back in S3.
     events: 
       - sqs: arn:aws:sqs:${env:MY_AWS_REGION}:${env:AWS_ACCOUNTID}:${env:SQS_QUEUE_NAME}
-  graphql:
-    handler: handler.server
-    description: This post function will be triggered by API Gateway
-    events:
-    - http:
-        path: /
-        method: post
-        cors: true
-  playground:
-    handler: handler.playground
-    description: This get function will be triggered by API Gateway
-    events:
-    - http:
-        path: /
-        method: get
-        cors: true
 resources:
   Resources:
     MyQueue:
       Type: AWS::SQS::Queue
       Properties:
-        VisibilityTimeout: 300
+        VisibilityTimeout: 30
         QueueName: ${env:SQS_QUEUE_NAME}
