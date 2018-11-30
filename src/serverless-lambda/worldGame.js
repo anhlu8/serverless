@@ -18,5 +18,4 @@ const worldGame = async () => {
     
     return worldList;
 };
-
 module.exports = worldGame;
