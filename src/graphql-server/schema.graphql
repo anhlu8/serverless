@@ -2,7 +2,7 @@
 # These are the resolvers we want to expose through the Node app.
 
 
-type Query{
+type Query {
   players: [Player!]!
   player(id: ID!): Player!
   alliances: [Alliance!]!
@@ -11,16 +11,15 @@ type Query{
   habitat(id: ID!): Habitat!
 }
 
-type Mutation{
-  createPlayer(data: CreatePlayerInput): Player
-  createAlliance(data: CreateAllianceInput): Alliance
-  createHabitat(data: CreateHabitatInput): Habitat
+type Mutation {
+  createPlayer(data: CreatePlayerInput!): Player!
+  createAlliance(data: CreateAllianceInput!): Alliance!
+  createHabitat(data: CreateHabitatInput!): Habitat!
 }
 
 input CreatePlayerInput {
   id: ID!
   nickname: String!
-  habitatArray: String!
 }
 
 type Player {
@@ -32,7 +31,6 @@ type Player {
 input CreateAllianceInput {
   id: ID!
   nickname: String!
-  playerArray: String!
   castleScore: Float!
 }
 
