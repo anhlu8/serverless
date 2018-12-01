@@ -19,36 +19,38 @@ type Mutation {
 
 input CreatePlayerInput {
   id: ID!
-  nickname: String!
+  nick: String!
 }
 
 type Player {
   id: ID! 
-  nickname: String!
-  habitatArray: [Habitat!]!
+  nick: String!
+  habitatIDs: [Habitat!]!
 }
 
 input CreateAllianceInput {
   id: ID!
-  nickname: String!
-  castleScore: Float!
+  name: String!
+  points: Float!
 }
 
 type Alliance {
   id: ID!
   nickname: String!
   playerArray: [Player!]!
-  castleScore: Float!
+  points: Float!
 }
 
 input CreateHabitatInput {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }
 
 type Habitat {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }

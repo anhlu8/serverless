@@ -5,3 +5,7 @@ package-lock.json
 .vscode
 .serverless
 .DS_Store
+209-players.json
+209-habitats.json
+209-alliances.json
+db
