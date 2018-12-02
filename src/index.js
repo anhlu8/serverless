@@ -5,5 +5,6 @@ module.exports = {
     unzipAndParse: require('./serverless-lambda/unzipAndParse'),
     resolvers: require('./graphql-server/resolvers'),
     worldGame: require('./serverless-lambda/worldGame'),
-    jsonArrs: require('./serverless-lambda/jsonArrs')
+    jsonArrs: require('./serverless-lambda/jsonArrs'),
+    utils: require('./graphql-server/utils')
 }

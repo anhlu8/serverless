@@ -2,55 +2,75 @@
 # These are the resolvers we want to expose through the Node app.
 
 
-type Query{
+type Query {
   players: [Player!]!
   player(id: ID!): Player!
   alliances: [Alliance!]!
   alliance(id: ID!): Alliance!
   habitats: [Habitat!]!
   habitat(id: ID!): Habitat!
+  user(id: ID, email:String!): User!
 }
 
-type Mutation{
-  createPlayer(data: CreatePlayerInput): Player
-  createAlliance(data: CreateAllianceInput): Alliance
-  createHabitat(data: CreateHabitatInput): Habitat
+type Mutation {
+  createPlayer(data: CreatePlayerInput!): Player!
+  createAlliance(data: CreateAllianceInput!): Alliance!
+  createHabitat(data: CreateHabitatInput!): Habitat!
+  createUser(data:CreateUserInput!): User!
+  signup(email:String!, password:String!): AuthPayload
+  login(email:String!, password:String!): AuthPayload
+}
+
+input CreateUserInput {
+  id: ID!
+  email: String!
+  password: String!
 }
 
 input CreatePlayerInput {
   id: ID!
-  nickname: String!
-  habitatArray: String!
+  nick: String!
 }
 
 type Player {
   id: ID! 
-  nickname: String!
-  habitatArray: [Habitat!]!
+  nick: String!
+  habitatIDs: [Habitat!]!
 }
 
 input CreateAllianceInput {
   id: ID!
-  nickname: String!
-  playerArray: String!
-  castleScore: Float!
+  name: String!
+  points: Float!
 }
 
 type Alliance {
   id: ID!
   nickname: String!
   playerArray: [Player!]!
-  castleScore: Float!
+  points: Float!
 }
 
 input CreateHabitatInput {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }
 
 type Habitat {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User
+}
+
+type User {
+  id: ID!
+  email: String!
 }

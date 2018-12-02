@@ -10,11 +10,15 @@ type AggregatePlayer {
   count: Int!
 }
 
+type AggregateUser {
+  count: Int!
+}
+
 type Alliance {
   id: ID!
-  nickname: String!
+  name: String!
   playerArray(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
-  castleScore: Float!
+  points: Float!
 }
 
 type AllianceConnection {
@@ -24,9 +28,9 @@ type AllianceConnection {
 }
 
 input AllianceCreateInput {
-  nickname: String!
+  name: String!
   playerArray: PlayerCreateManyInput
-  castleScore: Float!
+  points: Float!
 }
 
 type AllianceEdge {
@@ -37,10 +41,10 @@ type AllianceEdge {
 enum AllianceOrderByInput {
   id_ASC
   id_DESC
-  nickname_ASC
-  nickname_DESC
-  castleScore_ASC
-  castleScore_DESC
+  name_ASC
+  name_DESC
+  points_ASC
+  points_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -49,8 +53,8 @@ enum AllianceOrderByInput {
 
 type AlliancePreviousValues {
   id: ID!
-  nickname: String!
-  castleScore: Float!
+  name: String!
+  points: Float!
 }
 
 type AllianceSubscriptionPayload {
@@ -72,14 +76,14 @@ input AllianceSubscriptionWhereInput {
 }
 
 input AllianceUpdateInput {
-  nickname: String
+  name: String
   playerArray: PlayerUpdateManyInput
-  castleScore: Float
+  points: Float
 }
 
 input AllianceUpdateManyMutationInput {
-  nickname: String
-  castleScore: Float
+  name: String
+  points: Float
 }
 
 input AllianceWhereInput {
@@ -97,31 +101,31 @@ input AllianceWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  nickname: String
-  nickname_not: String
-  nickname_in: [String!]
-  nickname_not_in: [String!]
-  nickname_lt: String
-  nickname_lte: String
-  nickname_gt: String
-  nickname_gte: String
-  nickname_contains: String
-  nickname_not_contains: String
-  nickname_starts_with: String
-  nickname_not_starts_with: String
-  nickname_ends_with: String
-  nickname_not_ends_with: String
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
   playerArray_every: PlayerWhereInput
   playerArray_some: PlayerWhereInput
   playerArray_none: PlayerWhereInput
-  castleScore: Float
-  castleScore_not: Float
-  castleScore_in: [Float!]
-  castleScore_not_in: [Float!]
-  castleScore_lt: Float
-  castleScore_lte: Float
-  castleScore_gt: Float
-  castleScore_gte: Float
+  points: Float
+  points_not: Float
+  points_in: [Float!]
+  points_not_in: [Float!]
+  points_lt: Float
+  points_lte: Float
+  points_gt: Float
+  points_gte: Float
   AND: [AllianceWhereInput!]
   OR: [AllianceWhereInput!]
   NOT: [AllianceWhereInput!]
@@ -139,6 +143,7 @@ type Habitat {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }
 
 type HabitatConnection {
@@ -150,6 +155,7 @@ type HabitatConnection {
 input HabitatCreateInput {
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }
 
 input HabitatCreateManyInput {
@@ -169,6 +175,8 @@ enum HabitatOrderByInput {
   mapX_DESC
   mapY_ASC
   mapY_DESC
+  creationDate_ASC
+  creationDate_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -179,6 +187,7 @@ type HabitatPreviousValues {
   id: ID!
   mapX: Float!
   mapY: Float!
+  creationDate: String!
 }
 
 type HabitatSubscriptionPayload {
@@ -202,11 +211,13 @@ input HabitatSubscriptionWhereInput {
 input HabitatUpdateDataInput {
   mapX: Float
   mapY: Float
+  creationDate: String
 }
 
 input HabitatUpdateInput {
   mapX: Float
   mapY: Float
+  creationDate: String
 }
 
 input HabitatUpdateManyInput {
@@ -221,6 +232,7 @@ input HabitatUpdateManyInput {
 input HabitatUpdateManyMutationInput {
   mapX: Float
   mapY: Float
+  creationDate: String
 }
 
 input HabitatUpdateWithWhereUniqueNestedInput {
@@ -265,6 +277,20 @@ input HabitatWhereInput {
   mapY_lte: Float
   mapY_gt: Float
   mapY_gte: Float
+  creationDate: String
+  creationDate_not: String
+  creationDate_in: [String!]
+  creationDate_not_in: [String!]
+  creationDate_lt: String
+  creationDate_lte: String
+  creationDate_gt: String
+  creationDate_gte: String
+  creationDate_contains: String
+  creationDate_not_contains: String
+  creationDate_starts_with: String
+  creationDate_not_starts_with: String
+  creationDate_ends_with: String
+  creationDate_not_ends_with: String
   AND: [HabitatWhereInput!]
   OR: [HabitatWhereInput!]
   NOT: [HabitatWhereInput!]
@@ -295,6 +321,12 @@ type Mutation {
   upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
   deletePlayer(where: PlayerWhereUniqueInput!): Player
   deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
+  createUser(data: UserCreateInput!): User!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -316,8 +348,8 @@ type PageInfo {
 
 type Player {
   id: ID!
-  nickname: String!
-  habitatArray(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
+  nick: String!
+  habitatIDs(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
 }
 
 type PlayerConnection {
@@ -327,8 +359,8 @@ type PlayerConnection {
 }
 
 input PlayerCreateInput {
-  nickname: String!
-  habitatArray: HabitatCreateManyInput
+  nick: String!
+  habitatIDs: HabitatCreateManyInput
 }
 
 input PlayerCreateManyInput {
@@ -344,8 +376,8 @@ type PlayerEdge {
 enum PlayerOrderByInput {
   id_ASC
   id_DESC
-  nickname_ASC
-  nickname_DESC
+  nick_ASC
+  nick_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -354,7 +386,7 @@ enum PlayerOrderByInput {
 
 type PlayerPreviousValues {
   id: ID!
-  nickname: String!
+  nick: String!
 }
 
 type PlayerSubscriptionPayload {
@@ -376,13 +408,13 @@ input PlayerSubscriptionWhereInput {
 }
 
 input PlayerUpdateDataInput {
-  nickname: String
-  habitatArray: HabitatUpdateManyInput
+  nick: String
+  habitatIDs: HabitatUpdateManyInput
 }
 
 input PlayerUpdateInput {
-  nickname: String
-  habitatArray: HabitatUpdateManyInput
+  nick: String
+  habitatIDs: HabitatUpdateManyInput
 }
 
 input PlayerUpdateManyInput {
@@ -395,7 +427,7 @@ input PlayerUpdateManyInput {
 }
 
 input PlayerUpdateManyMutationInput {
-  nickname: String
+  nick: String
 }
 
 input PlayerUpdateWithWhereUniqueNestedInput {
@@ -424,23 +456,23 @@ input PlayerWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  nickname: String
-  nickname_not: String
-  nickname_in: [String!]
-  nickname_not_in: [String!]
-  nickname_lt: String
-  nickname_lte: String
-  nickname_gt: String
-  nickname_gte: String
-  nickname_contains: String
-  nickname_not_contains: String
-  nickname_starts_with: String
-  nickname_not_starts_with: String
-  nickname_ends_with: String
-  nickname_not_ends_with: String
-  habitatArray_every: HabitatWhereInput
-  habitatArray_some: HabitatWhereInput
-  habitatArray_none: HabitatWhereInput
+  nick: String
+  nick_not: String
+  nick_in: [String!]
+  nick_not_in: [String!]
+  nick_lt: String
+  nick_lte: String
+  nick_gt: String
+  nick_gte: String
+  nick_contains: String
+  nick_not_contains: String
+  nick_starts_with: String
+  nick_not_starts_with: String
+  nick_ends_with: String
+  nick_not_ends_with: String
+  habitatIDs_every: HabitatWhereInput
+  habitatIDs_some: HabitatWhereInput
+  habitatIDs_none: HabitatWhereInput
   AND: [PlayerWhereInput!]
   OR: [PlayerWhereInput!]
   NOT: [PlayerWhereInput!]
@@ -460,6 +492,9 @@ type Query {
   player(where: PlayerWhereUniqueInput!): Player
   players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
   playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
+  user(where: UserWhereUniqueInput!): User
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   node(id: ID!): Node
 }
 
@@ -467,4 +502,127 @@ type Subscription {
   alliance(where: AllianceSubscriptionWhereInput): AllianceSubscriptionPayload
   habitat(where: HabitatSubscriptionWhereInput): HabitatSubscriptionPayload
   player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type UserConnection {
+  pageInfo: PageInfo!
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  email: String!
+  password: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+  AND: [UserSubscriptionWhereInput!]
+  OR: [UserSubscriptionWhereInput!]
+  NOT: [UserSubscriptionWhereInput!]
+}
+
+input UserUpdateInput {
+  email: String
+  password: String
+}
+
+input UserUpdateManyMutationInput {
+  email: String
+  password: String
+}
+
+input UserWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input UserWhereUniqueInput {
+  id: ID
+  email: String
 }
