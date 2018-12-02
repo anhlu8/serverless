@@ -9,12 +9,22 @@ type Query {
   alliance(id: ID!): Alliance!
   habitats: [Habitat!]!
   habitat(id: ID!): Habitat!
+  user(id: ID, email:String!): User!
 }
 
 type Mutation {
   createPlayer(data: CreatePlayerInput!): Player!
   createAlliance(data: CreateAllianceInput!): Alliance!
   createHabitat(data: CreateHabitatInput!): Habitat!
+  createUser(data:CreateUserInput!): User!
+  signup(email:String!, password:String!): AuthPayload
+  login(email:String!, password:String!): AuthPayload
+}
+
+input CreateUserInput {
+  id: ID!
+  email: String!
+  password: String!
 }
 
 input CreatePlayerInput {
@@ -53,4 +63,14 @@ type Habitat {
   mapX: Float!
   mapY: Float!
   creationDate: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User
+}
+
+type User {
+  id: ID!
+  email: String!
 }

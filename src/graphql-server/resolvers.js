@@ -1,3 +1,7 @@
+require('dotenv').config()
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const resolvers = {
     Query: {
         players(parent, args, { prisma }, info) {
@@ -71,36 +75,44 @@ const resolvers = {
                 }
             })
         },
-        /////////////
+        async signup(parent, {email, password}, { prisma, db }, info){
+            const encryptedPassword = await bcrypt.hash(password, 10);
+            const user = await prisma.mutation.createUser({
+                data:{
+                    email,
+                    password: encryptedPassword
+                }
+            }, `{id}`);
+            const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+            return {
+                token,
+                user
+            }
+        },
+        async login(parent, {email, password}, { prisma, db }, info){
+            const user = await prisma.query.user({
+                where:{
+                    email
+                }
+            }, `{id password}`);
+            if (!user){
+                throw new Error('No such a user')
+            }
+            const valid = await bcrypt.compare(password, user.password);
+            if (!valid){
+                throw new Error('Invalid password')
+            }
+            const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
+            return {
+                token,
+                user
+            }
+            
+        },
+       
+
+        
     }
 };
 
 module.exports = resolvers;
-
-// mutation{
-//     createPlayer(data:{
-//       nickname: "Anh"
-//       habitatArray:{
-//         create: [
-//           {
-//           mapX:100
-//             mapY:200
-//         }
-//           {
-//           mapX:200
-//             mapY:300
-//         }
-//           {
-//           mapX:150
-//             mapY:250
-//         }
-//         ]}
-//     }){
-//       nickname
-//       habitatArray{
-//         id
-//         mapX
-//         mapY
-//       }
-//     }
-//   }

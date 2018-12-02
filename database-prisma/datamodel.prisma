@@ -20,3 +20,9 @@ type Habitat {
   mapY: Float!
   creationDate: String!
 }
+
+type User {
+  id: ID! @unique
+  email: String! @unique
+  password: String!
+}
