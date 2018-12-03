@@ -5,7 +5,7 @@ const { resolvers, jsonArrs } = require('../../src');
 
 const startServer = async () => {
   let db = await jsonArrs();
-  console.log(db);
+  console.log('3', db)
   const server = new GraphQLServer({
     typeDefs: './src/graphql-server/schema.graphql', //This is schema for GraphQL API
     resolvers,
