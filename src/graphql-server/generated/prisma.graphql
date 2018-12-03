@@ -29,7 +29,17 @@ type AllianceConnection {
 
 input AllianceCreateInput {
   name: String!
-  playerArray: PlayerCreateManyInput
+  playerArray: PlayerCreateManyWithoutAllianceInput
+  points: Float!
+}
+
+input AllianceCreateOneWithoutPlayerArrayInput {
+  create: AllianceCreateWithoutPlayerArrayInput
+  connect: AllianceWhereUniqueInput
+}
+
+input AllianceCreateWithoutPlayerArrayInput {
+  name: String!
   points: Float!
 }
 
@@ -77,13 +87,30 @@ input AllianceSubscriptionWhereInput {
 
 input AllianceUpdateInput {
   name: String
-  playerArray: PlayerUpdateManyInput
+  playerArray: PlayerUpdateManyWithoutAllianceInput
   points: Float
 }
 
 input AllianceUpdateManyMutationInput {
   name: String
   points: Float
+}
+
+input AllianceUpdateOneRequiredWithoutPlayerArrayInput {
+  create: AllianceCreateWithoutPlayerArrayInput
+  update: AllianceUpdateWithoutPlayerArrayDataInput
+  upsert: AllianceUpsertWithoutPlayerArrayInput
+  connect: AllianceWhereUniqueInput
+}
+
+input AllianceUpdateWithoutPlayerArrayDataInput {
+  name: String
+  points: Float
+}
+
+input AllianceUpsertWithoutPlayerArrayInput {
+  update: AllianceUpdateWithoutPlayerArrayDataInput!
+  create: AllianceCreateWithoutPlayerArrayInput!
 }
 
 input AllianceWhereInput {
@@ -144,6 +171,7 @@ type Habitat {
   mapX: Float!
   mapY: Float!
   creationDate: String!
+  player: Player!
 }
 
 type HabitatConnection {
@@ -156,11 +184,18 @@ input HabitatCreateInput {
   mapX: Float!
   mapY: Float!
   creationDate: String!
+  player: PlayerCreateOneWithoutHabitatIDsInput!
 }
 
-input HabitatCreateManyInput {
-  create: [HabitatCreateInput!]
+input HabitatCreateManyWithoutPlayerInput {
+  create: [HabitatCreateWithoutPlayerInput!]
   connect: [HabitatWhereUniqueInput!]
+}
+
+input HabitatCreateWithoutPlayerInput {
+  mapX: Float!
+  mapY: Float!
+  creationDate: String!
 }
 
 type HabitatEdge {
@@ -208,25 +243,11 @@ input HabitatSubscriptionWhereInput {
   NOT: [HabitatSubscriptionWhereInput!]
 }
 
-input HabitatUpdateDataInput {
-  mapX: Float
-  mapY: Float
-  creationDate: String
-}
-
 input HabitatUpdateInput {
   mapX: Float
   mapY: Float
   creationDate: String
-}
-
-input HabitatUpdateManyInput {
-  create: [HabitatCreateInput!]
-  update: [HabitatUpdateWithWhereUniqueNestedInput!]
-  upsert: [HabitatUpsertWithWhereUniqueNestedInput!]
-  delete: [HabitatWhereUniqueInput!]
-  connect: [HabitatWhereUniqueInput!]
-  disconnect: [HabitatWhereUniqueInput!]
+  player: PlayerUpdateOneRequiredWithoutHabitatIDsInput
 }
 
 input HabitatUpdateManyMutationInput {
@@ -235,15 +256,30 @@ input HabitatUpdateManyMutationInput {
   creationDate: String
 }
 
-input HabitatUpdateWithWhereUniqueNestedInput {
-  where: HabitatWhereUniqueInput!
-  data: HabitatUpdateDataInput!
+input HabitatUpdateManyWithoutPlayerInput {
+  create: [HabitatCreateWithoutPlayerInput!]
+  delete: [HabitatWhereUniqueInput!]
+  connect: [HabitatWhereUniqueInput!]
+  disconnect: [HabitatWhereUniqueInput!]
+  update: [HabitatUpdateWithWhereUniqueWithoutPlayerInput!]
+  upsert: [HabitatUpsertWithWhereUniqueWithoutPlayerInput!]
 }
 
-input HabitatUpsertWithWhereUniqueNestedInput {
+input HabitatUpdateWithoutPlayerDataInput {
+  mapX: Float
+  mapY: Float
+  creationDate: String
+}
+
+input HabitatUpdateWithWhereUniqueWithoutPlayerInput {
   where: HabitatWhereUniqueInput!
-  update: HabitatUpdateDataInput!
-  create: HabitatCreateInput!
+  data: HabitatUpdateWithoutPlayerDataInput!
+}
+
+input HabitatUpsertWithWhereUniqueWithoutPlayerInput {
+  where: HabitatWhereUniqueInput!
+  update: HabitatUpdateWithoutPlayerDataInput!
+  create: HabitatCreateWithoutPlayerInput!
 }
 
 input HabitatWhereInput {
@@ -291,6 +327,7 @@ input HabitatWhereInput {
   creationDate_not_starts_with: String
   creationDate_ends_with: String
   creationDate_not_ends_with: String
+  player: PlayerWhereInput
   AND: [HabitatWhereInput!]
   OR: [HabitatWhereInput!]
   NOT: [HabitatWhereInput!]
@@ -350,6 +387,7 @@ type Player {
   id: ID!
   nick: String!
   habitatIDs(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
+  alliance: Alliance!
 }
 
 type PlayerConnection {
@@ -360,12 +398,28 @@ type PlayerConnection {
 
 input PlayerCreateInput {
   nick: String!
-  habitatIDs: HabitatCreateManyInput
+  habitatIDs: HabitatCreateManyWithoutPlayerInput
+  alliance: AllianceCreateOneWithoutPlayerArrayInput!
 }
 
-input PlayerCreateManyInput {
-  create: [PlayerCreateInput!]
+input PlayerCreateManyWithoutAllianceInput {
+  create: [PlayerCreateWithoutAllianceInput!]
   connect: [PlayerWhereUniqueInput!]
+}
+
+input PlayerCreateOneWithoutHabitatIDsInput {
+  create: PlayerCreateWithoutHabitatIDsInput
+  connect: PlayerWhereUniqueInput
+}
+
+input PlayerCreateWithoutAllianceInput {
+  nick: String!
+  habitatIDs: HabitatCreateManyWithoutPlayerInput
+}
+
+input PlayerCreateWithoutHabitatIDsInput {
+  nick: String!
+  alliance: AllianceCreateOneWithoutPlayerArrayInput!
 }
 
 type PlayerEdge {
@@ -407,38 +461,56 @@ input PlayerSubscriptionWhereInput {
   NOT: [PlayerSubscriptionWhereInput!]
 }
 
-input PlayerUpdateDataInput {
-  nick: String
-  habitatIDs: HabitatUpdateManyInput
-}
-
 input PlayerUpdateInput {
   nick: String
-  habitatIDs: HabitatUpdateManyInput
-}
-
-input PlayerUpdateManyInput {
-  create: [PlayerCreateInput!]
-  update: [PlayerUpdateWithWhereUniqueNestedInput!]
-  upsert: [PlayerUpsertWithWhereUniqueNestedInput!]
-  delete: [PlayerWhereUniqueInput!]
-  connect: [PlayerWhereUniqueInput!]
-  disconnect: [PlayerWhereUniqueInput!]
+  habitatIDs: HabitatUpdateManyWithoutPlayerInput
+  alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
 }
 
 input PlayerUpdateManyMutationInput {
   nick: String
 }
 
-input PlayerUpdateWithWhereUniqueNestedInput {
-  where: PlayerWhereUniqueInput!
-  data: PlayerUpdateDataInput!
+input PlayerUpdateManyWithoutAllianceInput {
+  create: [PlayerCreateWithoutAllianceInput!]
+  delete: [PlayerWhereUniqueInput!]
+  connect: [PlayerWhereUniqueInput!]
+  disconnect: [PlayerWhereUniqueInput!]
+  update: [PlayerUpdateWithWhereUniqueWithoutAllianceInput!]
+  upsert: [PlayerUpsertWithWhereUniqueWithoutAllianceInput!]
 }
 
-input PlayerUpsertWithWhereUniqueNestedInput {
+input PlayerUpdateOneRequiredWithoutHabitatIDsInput {
+  create: PlayerCreateWithoutHabitatIDsInput
+  update: PlayerUpdateWithoutHabitatIDsDataInput
+  upsert: PlayerUpsertWithoutHabitatIDsInput
+  connect: PlayerWhereUniqueInput
+}
+
+input PlayerUpdateWithoutAllianceDataInput {
+  nick: String
+  habitatIDs: HabitatUpdateManyWithoutPlayerInput
+}
+
+input PlayerUpdateWithoutHabitatIDsDataInput {
+  nick: String
+  alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
+}
+
+input PlayerUpdateWithWhereUniqueWithoutAllianceInput {
   where: PlayerWhereUniqueInput!
-  update: PlayerUpdateDataInput!
-  create: PlayerCreateInput!
+  data: PlayerUpdateWithoutAllianceDataInput!
+}
+
+input PlayerUpsertWithoutHabitatIDsInput {
+  update: PlayerUpdateWithoutHabitatIDsDataInput!
+  create: PlayerCreateWithoutHabitatIDsInput!
+}
+
+input PlayerUpsertWithWhereUniqueWithoutAllianceInput {
+  where: PlayerWhereUniqueInput!
+  update: PlayerUpdateWithoutAllianceDataInput!
+  create: PlayerCreateWithoutAllianceInput!
 }
 
 input PlayerWhereInput {
@@ -473,6 +545,7 @@ input PlayerWhereInput {
   habitatIDs_every: HabitatWhereInput
   habitatIDs_some: HabitatWhereInput
   habitatIDs_none: HabitatWhereInput
+  alliance: AllianceWhereInput
   AND: [PlayerWhereInput!]
   OR: [PlayerWhereInput!]
   NOT: [PlayerWhereInput!]
