@@ -36,6 +36,7 @@ type Player {
   id: ID! 
   nick: String!
   habitatIDs: [Habitat!]!
+  alliance: Alliance!
 }
 
 input CreateAllianceInput {
@@ -63,6 +64,7 @@ type Habitat {
   mapX: Float!
   mapY: Float!
   creationDate: String!
+  player: Player!
 }
 
 # type AuthPayload {
