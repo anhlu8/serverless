@@ -22,8 +22,6 @@ const jsonArrs = async () => {
     return results;
 };
 
-// jsonArrs();
-
 module.exports = jsonArrs;
 
 //The block of code below is to update S3's CORS if needed:
