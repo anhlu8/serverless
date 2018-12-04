@@ -28,6 +28,7 @@ package:
   excludeDevDependencies: false
   include:
    - src/**
+   - db/**
   exclude:
     - docs/**
     - helpers/**
