@@ -1,11 +1,12 @@
-module.exports = {
-    authenticate: require('./utils/authenticate'),
-    getDB: require('./utils/getDB'),
-    getFile: require('./utils/getFile'),
-    jsonArrs: require('./utils/jsonArrs'),
-    lamdaToSqs: require('./utils/lamdaToSqs'),
-    saveToS3: require('./utils/saveToS3'),
-    unzipAndParse: require('./utils/unzipAndParse'),
-    resolvers: require('./server/resolvers'),
-    worldGame: require('./utils/worldGame')
-}
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: http://bit.ly/CRA-PWA
+serviceWorker.unregister();
