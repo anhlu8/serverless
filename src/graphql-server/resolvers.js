@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
 // const { jsonArrs } = require('../../src');
@@ -26,66 +26,31 @@ const resolvers = {
     },
     Mutation: {
         async createPlayer(parent, args, { prisma, db}, info) {
-            const promises = await db.map(i => {
-                if (i.title === '209-players.json') {
-                    i.list.map(async (j) => {
-                        const dataObject = await {
-                            id: j.id,
-                            nick: j.nick
-                        }
-                        return dataObject;
-                    })
-                } else{
-                    console.log('none')
-                }
-            });
-            const results = await Promise.all(promises);
-            return prisma.mutation.createPlayer({
-                data: results
-            },
-                info
-            )
+            db.players.list.map(i => {
+                return prisma.mutation.createPlayer({ data: {
+                    id: i.id,
+                    nick: i.nick
+                }}, info)
+            })
         },
-        async createAlliance(parent, args, { prisma, db }, info){
-            const promises = await db.map(i => {
-                if (i.title === '209-alliances.json') {
-                    i.list.map(async (j) => {
-                        const dataObject = await {
-                            id: j.id,
-                            name: j.name,
-                            points: j.points
-                        }
-                        return dataObject;
-                    })
-                }
-            });
-            const results = await Promise.all(promises);
-            return prisma.mutation.createAlliance({
-                data: results
-            },
-                info
-            )
+        async createAlliance(parent, args, { prisma, db}, info) {
+            db.alliances.list.map(i => {
+                return prisma.mutation.createAlliance({ data: {
+                    id: i.id,
+                    name: i.name,
+                    points: i.points
+                }}, info)
+            })
         },
-        async createHabitat(parent, args, { prisma, db }, info){
-            const promises = await db.map(i => {
-                if (i.title === '209-habitats.json') {
-                    i.list.map(async (j) => {
-                        const dataObject = await {
-                            id: j.id,
-                            mapX: j.mapX,
-                            mapY: j.mapY,
-                            creationDate: j.creationDate
-                        }
-                        return dataObject;
-                    })
-                }
-            });
-            const results = await Promise.all(promises);
-            return prisma.mutation.createHabitat({
-                data: results
-            },
-                info
-            )
+        async createHabitat(parent, args, { prisma, db}, info) {
+            db.habitats.list.map(i => {
+                return prisma.mutation.createHabitat({ data: {
+                    id: i.id,
+                    mapX: i.mapX,
+                    mapY: i.mapY,
+                    creationDate: i.creationDate
+                }}, info)
+            })
         },
         // async signup(parent, {email, password}, { prisma, db }, info){
         //     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -121,40 +86,8 @@ const resolvers = {
         //     }
         // },
     },
-    Player:{
-    },
-    Alliance:{
-    },
-    Habitat:{
-    }
 };
 
 
 module.exports = resolvers;
 
-
-
-// const createPlayer = async (parent, args, ctx, info) => {
-//     const {prisma, db} = ctx
-//     const promises = await db.map(i => {
-//         if (i.title === '209-players.json') {
-//             i.list.map(async (j) => {
-//                 const dataObject = await {
-//                     id: j.id,
-//                     nickname: j.nick
-//                 }
-//                 return dataObject;
-//             })
-//         }
-//     });
-//     const results = await Promise.all(promises);
-//     return prisma.mutation.createPlayer({
-//         data: {
-//             results
-//         },
-//     },
-//         info
-//     )
-// };
-
-// createPlayer()
