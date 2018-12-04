@@ -35,6 +35,8 @@ const resolvers = {
                         }
                         return dataObject;
                     })
+                } else{
+                    console.log('none')
                 }
             });
             const results = await Promise.all(promises);
@@ -122,6 +124,8 @@ const resolvers = {
     Player:{
     },
     Alliance:{
+    },
+    Habitat:{
     }
 };
 

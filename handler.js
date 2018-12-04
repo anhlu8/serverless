@@ -51,7 +51,7 @@ module.exports.deserialize = async (event, context) => {
   const sentparams = {
     Bucket: bucket,
     Key: title,
-    Body: asString
+    Body: asString,
   }
   await s3.putObject(sentparams).promise()
     .catch(err => new Error(`Error scraping: ${JSON.stringify(err)}`))

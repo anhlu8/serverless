@@ -14,14 +14,12 @@ const jsonArrs = async () => {
 
         let { Body } = await s3.getObject(params).promise();
         let list = await JSON.parse(Buffer.from(Body).toString("utf8"));
-        // console.log('1',list);
         return {
             title: title,
             list: list};
     })
     const results = await Promise.all(promises);
     return results;
-    // return console.log('2',results);
 };
 
 // jsonArrs();
