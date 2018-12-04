@@ -6,5 +6,6 @@ module.exports = {
     resolvers: require('./graphql-server/resolvers'),
     worldGame: require('./serverless-lambda/worldGame'),
     jsonArrs: require('./serverless-lambda/jsonArrs'),
-    utils: require('./graphql-server/utils')
+    utils: require('./graphql-server/utils'),
+    getDB: require('./serverless-lambda/getDB')
 }

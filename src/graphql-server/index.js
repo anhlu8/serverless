@@ -3,9 +3,19 @@ const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const { resolvers, jsonArrs } = require('../../src');
 
+const arrayToObject = (arr, keyField) =>
+    Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
+
+const getDB = async () => {
+    let promise = await jsonArrs();
+
+    let db = await arrayToObject(promise, "title")
+    return db;
+};
+
 const startServer = async () => {
-  let db = await jsonArrs();
-  console.log(db);
+  let db = await getDB();
+  console.log('3', db)
   const server = new GraphQLServer({
     typeDefs: './src/graphql-server/schema.graphql', //This is schema for GraphQL API
     resolvers,
