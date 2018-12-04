@@ -4,7 +4,7 @@ const {
   getFile,
   saveToS3,
   worldGame
-} = require('./src');
+} = require('./src/index');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 AWS.config.setPromisesDependency(Promise);
