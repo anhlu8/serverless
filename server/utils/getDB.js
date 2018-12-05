@@ -1,4 +1,4 @@
-const { jsonArrs } = require('../../src/index');
+const { jsonArrs } = require('./index');
 
 const arrayToObject = (arr, keyField) =>
     Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));

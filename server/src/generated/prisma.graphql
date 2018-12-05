@@ -167,7 +167,7 @@ type Habitat {
   mapX: Float!
   mapY: Float!
   creationDate: String!
-  player: Player!
+  player: Player
 }
 
 type HabitatConnection {
@@ -180,7 +180,7 @@ input HabitatCreateInput {
   mapX: Float!
   mapY: Float!
   creationDate: String!
-  player: PlayerCreateOneWithoutHabitatIDsInput!
+  player: PlayerCreateOneWithoutHabitatIDsInput
 }
 
 input HabitatCreateManyWithoutPlayerInput {
@@ -243,7 +243,7 @@ input HabitatUpdateInput {
   mapX: Float
   mapY: Float
   creationDate: String
-  player: PlayerUpdateOneRequiredWithoutHabitatIDsInput
+  player: PlayerUpdateOneWithoutHabitatIDsInput
 }
 
 input HabitatUpdateManyMutationInput {
@@ -470,10 +470,12 @@ input PlayerUpdateManyWithoutAllianceInput {
   upsert: [PlayerUpsertWithWhereUniqueWithoutAllianceInput!]
 }
 
-input PlayerUpdateOneRequiredWithoutHabitatIDsInput {
+input PlayerUpdateOneWithoutHabitatIDsInput {
   create: PlayerCreateWithoutHabitatIDsInput
   update: PlayerUpdateWithoutHabitatIDsDataInput
   upsert: PlayerUpsertWithoutHabitatIDsInput
+  delete: Boolean
+  disconnect: Boolean
   connect: PlayerWhereUniqueInput
 }
 
