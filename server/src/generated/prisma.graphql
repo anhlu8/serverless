@@ -1,3 +1,6 @@
+# source: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev
+# timestamp: Wed Dec 05 2018 12:05:59 GMT-0500 (Eastern Standard Time)
+
 type AggregateAlliance {
   count: Int!
 }
@@ -10,23 +13,27 @@ type AggregatePlayer {
   count: Int!
 }
 
-type Alliance {
+type Alliance implements Node {
   id: ID!
   name: String!
   playerArray(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
   points: Float!
 }
 
+"""A connection to a list of items."""
 type AllianceConnection {
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
+
+  """A list of edges."""
   edges: [AllianceEdge]!
   aggregate: AggregateAlliance!
 }
 
 input AllianceCreateInput {
   name: String!
-  playerArray: PlayerCreateManyWithoutAllianceInput
   points: Float!
+  playerArray: PlayerCreateManyWithoutAllianceInput
 }
 
 input AllianceCreateOneWithoutPlayerArrayInput {
@@ -39,8 +46,12 @@ input AllianceCreateWithoutPlayerArrayInput {
   points: Float!
 }
 
+"""An edge in a connection."""
 type AllianceEdge {
+  """The item at the end of the edge."""
   node: Alliance!
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -51,10 +62,10 @@ enum AllianceOrderByInput {
   name_DESC
   points_ASC
   points_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type AlliancePreviousValues {
@@ -71,20 +82,41 @@ type AllianceSubscriptionPayload {
 }
 
 input AllianceSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AllianceSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AllianceSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AllianceSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
   updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
   updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
   updatedFields_contains_some: [String!]
   node: AllianceWhereInput
-  AND: [AllianceSubscriptionWhereInput!]
-  OR: [AllianceSubscriptionWhereInput!]
-  NOT: [AllianceSubscriptionWhereInput!]
 }
 
 input AllianceUpdateInput {
   name: String
-  playerArray: PlayerUpdateManyWithoutAllianceInput
   points: Float
+  playerArray: PlayerUpdateManyWithoutAllianceInput
 }
 
 input AllianceUpdateManyMutationInput {
@@ -94,9 +126,9 @@ input AllianceUpdateManyMutationInput {
 
 input AllianceUpdateOneRequiredWithoutPlayerArrayInput {
   create: AllianceCreateWithoutPlayerArrayInput
+  connect: AllianceWhereUniqueInput
   update: AllianceUpdateWithoutPlayerArrayDataInput
   upsert: AllianceUpsertWithoutPlayerArrayInput
-  connect: AllianceWhereUniqueInput
 }
 
 input AllianceUpdateWithoutPlayerArrayDataInput {
@@ -110,48 +142,119 @@ input AllianceUpsertWithoutPlayerArrayInput {
 }
 
 input AllianceWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AllianceWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AllianceWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AllianceWhereInput!]
   id: ID
+
+  """All values that are not equal to given value."""
   id_not: ID
+
+  """All values that are contained in given list."""
   id_in: [ID!]
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
+
+  """All values less than the given value."""
   id_lt: ID
+
+  """All values less than or equal the given value."""
   id_lte: ID
+
+  """All values greater than the given value."""
   id_gt: ID
+
+  """All values greater than or equal the given value."""
   id_gte: ID
+
+  """All values containing the given string."""
   id_contains: ID
+
+  """All values not containing the given string."""
   id_not_contains: ID
+
+  """All values starting with the given string."""
   id_starts_with: ID
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
+
+  """All values ending with the given string."""
   id_ends_with: ID
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   name: String
+
+  """All values that are not equal to given value."""
   name_not: String
+
+  """All values that are contained in given list."""
   name_in: [String!]
+
+  """All values that are not contained in given list."""
   name_not_in: [String!]
+
+  """All values less than the given value."""
   name_lt: String
+
+  """All values less than or equal the given value."""
   name_lte: String
+
+  """All values greater than the given value."""
   name_gt: String
+
+  """All values greater than or equal the given value."""
   name_gte: String
+
+  """All values containing the given string."""
   name_contains: String
+
+  """All values not containing the given string."""
   name_not_contains: String
+
+  """All values starting with the given string."""
   name_starts_with: String
+
+  """All values not starting with the given string."""
   name_not_starts_with: String
+
+  """All values ending with the given string."""
   name_ends_with: String
+
+  """All values not ending with the given string."""
   name_not_ends_with: String
+  points: Float
+
+  """All values that are not equal to given value."""
+  points_not: Float
+
+  """All values that are contained in given list."""
+  points_in: [Float!]
+
+  """All values that are not contained in given list."""
+  points_not_in: [Float!]
+
+  """All values less than the given value."""
+  points_lt: Float
+
+  """All values less than or equal the given value."""
+  points_lte: Float
+
+  """All values greater than the given value."""
+  points_gt: Float
+
+  """All values greater than or equal the given value."""
+  points_gte: Float
   playerArray_every: PlayerWhereInput
   playerArray_some: PlayerWhereInput
   playerArray_none: PlayerWhereInput
-  points: Float
-  points_not: Float
-  points_in: [Float!]
-  points_not_in: [Float!]
-  points_lt: Float
-  points_lte: Float
-  points_gt: Float
-  points_gte: Float
-  AND: [AllianceWhereInput!]
-  OR: [AllianceWhereInput!]
-  NOT: [AllianceWhereInput!]
 }
 
 input AllianceWhereUniqueInput {
@@ -159,19 +262,24 @@ input AllianceWhereUniqueInput {
 }
 
 type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
   count: Long!
 }
 
-type Habitat {
+type Habitat implements Node {
   id: ID!
   mapX: Float!
   mapY: Float!
   creationDate: String!
-  player: Player!
+  player: Player
 }
 
+"""A connection to a list of items."""
 type HabitatConnection {
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
+
+  """A list of edges."""
   edges: [HabitatEdge]!
   aggregate: AggregateHabitat!
 }
@@ -180,7 +288,7 @@ input HabitatCreateInput {
   mapX: Float!
   mapY: Float!
   creationDate: String!
-  player: PlayerCreateOneWithoutHabitatIDsInput!
+  player: PlayerCreateOneWithoutHabitatIDsInput
 }
 
 input HabitatCreateManyWithoutPlayerInput {
@@ -194,8 +302,12 @@ input HabitatCreateWithoutPlayerInput {
   creationDate: String!
 }
 
+"""An edge in a connection."""
 type HabitatEdge {
+  """The item at the end of the edge."""
   node: Habitat!
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -208,10 +320,10 @@ enum HabitatOrderByInput {
   mapY_DESC
   creationDate_ASC
   creationDate_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type HabitatPreviousValues {
@@ -219,6 +331,141 @@ type HabitatPreviousValues {
   mapX: Float!
   mapY: Float!
   creationDate: String!
+}
+
+input HabitatScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HabitatScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HabitatScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HabitatScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  mapX: Float
+
+  """All values that are not equal to given value."""
+  mapX_not: Float
+
+  """All values that are contained in given list."""
+  mapX_in: [Float!]
+
+  """All values that are not contained in given list."""
+  mapX_not_in: [Float!]
+
+  """All values less than the given value."""
+  mapX_lt: Float
+
+  """All values less than or equal the given value."""
+  mapX_lte: Float
+
+  """All values greater than the given value."""
+  mapX_gt: Float
+
+  """All values greater than or equal the given value."""
+  mapX_gte: Float
+  mapY: Float
+
+  """All values that are not equal to given value."""
+  mapY_not: Float
+
+  """All values that are contained in given list."""
+  mapY_in: [Float!]
+
+  """All values that are not contained in given list."""
+  mapY_not_in: [Float!]
+
+  """All values less than the given value."""
+  mapY_lt: Float
+
+  """All values less than or equal the given value."""
+  mapY_lte: Float
+
+  """All values greater than the given value."""
+  mapY_gt: Float
+
+  """All values greater than or equal the given value."""
+  mapY_gte: Float
+  creationDate: String
+
+  """All values that are not equal to given value."""
+  creationDate_not: String
+
+  """All values that are contained in given list."""
+  creationDate_in: [String!]
+
+  """All values that are not contained in given list."""
+  creationDate_not_in: [String!]
+
+  """All values less than the given value."""
+  creationDate_lt: String
+
+  """All values less than or equal the given value."""
+  creationDate_lte: String
+
+  """All values greater than the given value."""
+  creationDate_gt: String
+
+  """All values greater than or equal the given value."""
+  creationDate_gte: String
+
+  """All values containing the given string."""
+  creationDate_contains: String
+
+  """All values not containing the given string."""
+  creationDate_not_contains: String
+
+  """All values starting with the given string."""
+  creationDate_starts_with: String
+
+  """All values not starting with the given string."""
+  creationDate_not_starts_with: String
+
+  """All values ending with the given string."""
+  creationDate_ends_with: String
+
+  """All values not ending with the given string."""
+  creationDate_not_ends_with: String
 }
 
 type HabitatSubscriptionPayload {
@@ -229,21 +476,48 @@ type HabitatSubscriptionPayload {
 }
 
 input HabitatSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HabitatSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HabitatSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HabitatSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
   updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
   updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
   updatedFields_contains_some: [String!]
   node: HabitatWhereInput
-  AND: [HabitatSubscriptionWhereInput!]
-  OR: [HabitatSubscriptionWhereInput!]
-  NOT: [HabitatSubscriptionWhereInput!]
 }
 
 input HabitatUpdateInput {
   mapX: Float
   mapY: Float
   creationDate: String
-  player: PlayerUpdateOneRequiredWithoutHabitatIDsInput
+  player: PlayerUpdateOneWithoutHabitatIDsInput
+}
+
+input HabitatUpdateManyDataInput {
+  mapX: Float
+  mapY: Float
+  creationDate: String
 }
 
 input HabitatUpdateManyMutationInput {
@@ -254,11 +528,18 @@ input HabitatUpdateManyMutationInput {
 
 input HabitatUpdateManyWithoutPlayerInput {
   create: [HabitatCreateWithoutPlayerInput!]
-  delete: [HabitatWhereUniqueInput!]
   connect: [HabitatWhereUniqueInput!]
   disconnect: [HabitatWhereUniqueInput!]
+  delete: [HabitatWhereUniqueInput!]
   update: [HabitatUpdateWithWhereUniqueWithoutPlayerInput!]
+  updateMany: [HabitatUpdateManyWithWhereNestedInput!]
+  deleteMany: [HabitatScalarWhereInput!]
   upsert: [HabitatUpsertWithWhereUniqueWithoutPlayerInput!]
+}
+
+input HabitatUpdateManyWithWhereNestedInput {
+  where: HabitatScalarWhereInput!
+  data: HabitatUpdateManyDataInput!
 }
 
 input HabitatUpdateWithoutPlayerDataInput {
@@ -279,81 +560,170 @@ input HabitatUpsertWithWhereUniqueWithoutPlayerInput {
 }
 
 input HabitatWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HabitatWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HabitatWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HabitatWhereInput!]
   id: ID
+
+  """All values that are not equal to given value."""
   id_not: ID
+
+  """All values that are contained in given list."""
   id_in: [ID!]
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
+
+  """All values less than the given value."""
   id_lt: ID
+
+  """All values less than or equal the given value."""
   id_lte: ID
+
+  """All values greater than the given value."""
   id_gt: ID
+
+  """All values greater than or equal the given value."""
   id_gte: ID
+
+  """All values containing the given string."""
   id_contains: ID
+
+  """All values not containing the given string."""
   id_not_contains: ID
+
+  """All values starting with the given string."""
   id_starts_with: ID
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
+
+  """All values ending with the given string."""
   id_ends_with: ID
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   mapX: Float
+
+  """All values that are not equal to given value."""
   mapX_not: Float
+
+  """All values that are contained in given list."""
   mapX_in: [Float!]
+
+  """All values that are not contained in given list."""
   mapX_not_in: [Float!]
+
+  """All values less than the given value."""
   mapX_lt: Float
+
+  """All values less than or equal the given value."""
   mapX_lte: Float
+
+  """All values greater than the given value."""
   mapX_gt: Float
+
+  """All values greater than or equal the given value."""
   mapX_gte: Float
   mapY: Float
+
+  """All values that are not equal to given value."""
   mapY_not: Float
+
+  """All values that are contained in given list."""
   mapY_in: [Float!]
+
+  """All values that are not contained in given list."""
   mapY_not_in: [Float!]
+
+  """All values less than the given value."""
   mapY_lt: Float
+
+  """All values less than or equal the given value."""
   mapY_lte: Float
+
+  """All values greater than the given value."""
   mapY_gt: Float
+
+  """All values greater than or equal the given value."""
   mapY_gte: Float
   creationDate: String
+
+  """All values that are not equal to given value."""
   creationDate_not: String
+
+  """All values that are contained in given list."""
   creationDate_in: [String!]
+
+  """All values that are not contained in given list."""
   creationDate_not_in: [String!]
+
+  """All values less than the given value."""
   creationDate_lt: String
+
+  """All values less than or equal the given value."""
   creationDate_lte: String
+
+  """All values greater than the given value."""
   creationDate_gt: String
+
+  """All values greater than or equal the given value."""
   creationDate_gte: String
+
+  """All values containing the given string."""
   creationDate_contains: String
+
+  """All values not containing the given string."""
   creationDate_not_contains: String
+
+  """All values starting with the given string."""
   creationDate_starts_with: String
+
+  """All values not starting with the given string."""
   creationDate_not_starts_with: String
+
+  """All values ending with the given string."""
   creationDate_ends_with: String
+
+  """All values not ending with the given string."""
   creationDate_not_ends_with: String
   player: PlayerWhereInput
-  AND: [HabitatWhereInput!]
-  OR: [HabitatWhereInput!]
-  NOT: [HabitatWhereInput!]
 }
 
 input HabitatWhereUniqueInput {
   id: ID
 }
 
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
 scalar Long
 
 type Mutation {
-  createAlliance(data: AllianceCreateInput!): Alliance!
-  updateAlliance(data: AllianceUpdateInput!, where: AllianceWhereUniqueInput!): Alliance
-  updateManyAlliances(data: AllianceUpdateManyMutationInput!, where: AllianceWhereInput): BatchPayload!
-  upsertAlliance(where: AllianceWhereUniqueInput!, create: AllianceCreateInput!, update: AllianceUpdateInput!): Alliance!
-  deleteAlliance(where: AllianceWhereUniqueInput!): Alliance
-  deleteManyAlliances(where: AllianceWhereInput): BatchPayload!
-  createHabitat(data: HabitatCreateInput!): Habitat!
-  updateHabitat(data: HabitatUpdateInput!, where: HabitatWhereUniqueInput!): Habitat
-  updateManyHabitats(data: HabitatUpdateManyMutationInput!, where: HabitatWhereInput): BatchPayload!
-  upsertHabitat(where: HabitatWhereUniqueInput!, create: HabitatCreateInput!, update: HabitatUpdateInput!): Habitat!
-  deleteHabitat(where: HabitatWhereUniqueInput!): Habitat
-  deleteManyHabitats(where: HabitatWhereInput): BatchPayload!
   createPlayer(data: PlayerCreateInput!): Player!
+  createAlliance(data: AllianceCreateInput!): Alliance!
+  createHabitat(data: HabitatCreateInput!): Habitat!
   updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player
-  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
-  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  updateAlliance(data: AllianceUpdateInput!, where: AllianceWhereUniqueInput!): Alliance
+  updateHabitat(data: HabitatUpdateInput!, where: HabitatWhereUniqueInput!): Habitat
   deletePlayer(where: PlayerWhereUniqueInput!): Player
+  deleteAlliance(where: AllianceWhereUniqueInput!): Alliance
+  deleteHabitat(where: HabitatWhereUniqueInput!): Habitat
+  upsertPlayer(where: PlayerWhereUniqueInput!, create: PlayerCreateInput!, update: PlayerUpdateInput!): Player!
+  upsertAlliance(where: AllianceWhereUniqueInput!, create: AllianceCreateInput!, update: AllianceUpdateInput!): Alliance!
+  upsertHabitat(where: HabitatWhereUniqueInput!, create: HabitatCreateInput!, update: HabitatUpdateInput!): Habitat!
+  updateManyPlayers(data: PlayerUpdateManyMutationInput!, where: PlayerWhereInput): BatchPayload!
+  updateManyAlliances(data: AllianceUpdateManyMutationInput!, where: AllianceWhereInput): BatchPayload!
+  updateManyHabitats(data: HabitatUpdateManyMutationInput!, where: HabitatWhereInput): BatchPayload!
   deleteManyPlayers(where: PlayerWhereInput): BatchPayload!
+  deleteManyAlliances(where: AllianceWhereInput): BatchPayload!
+  deleteManyHabitats(where: HabitatWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -362,26 +732,40 @@ enum MutationType {
   DELETED
 }
 
+"""An object with an ID"""
 interface Node {
+  """The id of the object."""
   id: ID!
 }
 
+"""Information about pagination in a connection."""
 type PageInfo {
+  """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
   startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
   endCursor: String
 }
 
-type Player {
+type Player implements Node {
   id: ID!
   nick: String!
   habitatIDs(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
   alliance: Alliance!
 }
 
+"""A connection to a list of items."""
 type PlayerConnection {
+  """Information to aid in pagination."""
   pageInfo: PageInfo!
+
+  """A list of edges."""
   edges: [PlayerEdge]!
   aggregate: AggregatePlayer!
 }
@@ -412,8 +796,12 @@ input PlayerCreateWithoutHabitatIDsInput {
   alliance: AllianceCreateOneWithoutPlayerArrayInput!
 }
 
+"""An edge in a connection."""
 type PlayerEdge {
+  """The item at the end of the edge."""
   node: Player!
+
+  """A cursor for use in pagination."""
   cursor: String!
 }
 
@@ -422,15 +810,106 @@ enum PlayerOrderByInput {
   id_DESC
   nick_ASC
   nick_DESC
-  createdAt_ASC
-  createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
 
 type PlayerPreviousValues {
   id: ID!
   nick: String!
+}
+
+input PlayerScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlayerScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlayerScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlayerScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  nick: String
+
+  """All values that are not equal to given value."""
+  nick_not: String
+
+  """All values that are contained in given list."""
+  nick_in: [String!]
+
+  """All values that are not contained in given list."""
+  nick_not_in: [String!]
+
+  """All values less than the given value."""
+  nick_lt: String
+
+  """All values less than or equal the given value."""
+  nick_lte: String
+
+  """All values greater than the given value."""
+  nick_gt: String
+
+  """All values greater than or equal the given value."""
+  nick_gte: String
+
+  """All values containing the given string."""
+  nick_contains: String
+
+  """All values not containing the given string."""
+  nick_not_contains: String
+
+  """All values starting with the given string."""
+  nick_starts_with: String
+
+  """All values not starting with the given string."""
+  nick_not_starts_with: String
+
+  """All values ending with the given string."""
+  nick_ends_with: String
+
+  """All values not ending with the given string."""
+  nick_not_ends_with: String
 }
 
 type PlayerSubscriptionPayload {
@@ -441,14 +920,35 @@ type PlayerSubscriptionPayload {
 }
 
 input PlayerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlayerSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlayerSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlayerSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
   updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
   updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
   updatedFields_contains_some: [String!]
   node: PlayerWhereInput
-  AND: [PlayerSubscriptionWhereInput!]
-  OR: [PlayerSubscriptionWhereInput!]
-  NOT: [PlayerSubscriptionWhereInput!]
 }
 
 input PlayerUpdateInput {
@@ -457,24 +957,37 @@ input PlayerUpdateInput {
   alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
 }
 
+input PlayerUpdateManyDataInput {
+  nick: String
+}
+
 input PlayerUpdateManyMutationInput {
   nick: String
 }
 
 input PlayerUpdateManyWithoutAllianceInput {
   create: [PlayerCreateWithoutAllianceInput!]
-  delete: [PlayerWhereUniqueInput!]
   connect: [PlayerWhereUniqueInput!]
   disconnect: [PlayerWhereUniqueInput!]
+  delete: [PlayerWhereUniqueInput!]
   update: [PlayerUpdateWithWhereUniqueWithoutAllianceInput!]
+  updateMany: [PlayerUpdateManyWithWhereNestedInput!]
+  deleteMany: [PlayerScalarWhereInput!]
   upsert: [PlayerUpsertWithWhereUniqueWithoutAllianceInput!]
 }
 
-input PlayerUpdateOneRequiredWithoutHabitatIDsInput {
+input PlayerUpdateManyWithWhereNestedInput {
+  where: PlayerScalarWhereInput!
+  data: PlayerUpdateManyDataInput!
+}
+
+input PlayerUpdateOneWithoutHabitatIDsInput {
   create: PlayerCreateWithoutHabitatIDsInput
+  connect: PlayerWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: PlayerUpdateWithoutHabitatIDsDataInput
   upsert: PlayerUpsertWithoutHabitatIDsInput
-  connect: PlayerWhereUniqueInput
 }
 
 input PlayerUpdateWithoutAllianceDataInput {
@@ -504,41 +1017,98 @@ input PlayerUpsertWithWhereUniqueWithoutAllianceInput {
 }
 
 input PlayerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PlayerWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PlayerWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PlayerWhereInput!]
   id: ID
+
+  """All values that are not equal to given value."""
   id_not: ID
+
+  """All values that are contained in given list."""
   id_in: [ID!]
+
+  """All values that are not contained in given list."""
   id_not_in: [ID!]
+
+  """All values less than the given value."""
   id_lt: ID
+
+  """All values less than or equal the given value."""
   id_lte: ID
+
+  """All values greater than the given value."""
   id_gt: ID
+
+  """All values greater than or equal the given value."""
   id_gte: ID
+
+  """All values containing the given string."""
   id_contains: ID
+
+  """All values not containing the given string."""
   id_not_contains: ID
+
+  """All values starting with the given string."""
   id_starts_with: ID
+
+  """All values not starting with the given string."""
   id_not_starts_with: ID
+
+  """All values ending with the given string."""
   id_ends_with: ID
+
+  """All values not ending with the given string."""
   id_not_ends_with: ID
   nick: String
+
+  """All values that are not equal to given value."""
   nick_not: String
+
+  """All values that are contained in given list."""
   nick_in: [String!]
+
+  """All values that are not contained in given list."""
   nick_not_in: [String!]
+
+  """All values less than the given value."""
   nick_lt: String
+
+  """All values less than or equal the given value."""
   nick_lte: String
+
+  """All values greater than the given value."""
   nick_gt: String
+
+  """All values greater than or equal the given value."""
   nick_gte: String
+
+  """All values containing the given string."""
   nick_contains: String
+
+  """All values not containing the given string."""
   nick_not_contains: String
+
+  """All values starting with the given string."""
   nick_starts_with: String
+
+  """All values not starting with the given string."""
   nick_not_starts_with: String
+
+  """All values ending with the given string."""
   nick_ends_with: String
+
+  """All values not ending with the given string."""
   nick_not_ends_with: String
   habitatIDs_every: HabitatWhereInput
   habitatIDs_some: HabitatWhereInput
   habitatIDs_none: HabitatWhereInput
   alliance: AllianceWhereInput
-  AND: [PlayerWhereInput!]
-  OR: [PlayerWhereInput!]
-  NOT: [PlayerWhereInput!]
 }
 
 input PlayerWhereUniqueInput {
@@ -546,20 +1116,25 @@ input PlayerWhereUniqueInput {
 }
 
 type Query {
-  alliance(where: AllianceWhereUniqueInput!): Alliance
-  alliances(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Alliance]!
-  alliancesConnection(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AllianceConnection!
-  habitat(where: HabitatWhereUniqueInput!): Habitat
-  habitats(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat]!
-  habitatsConnection(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HabitatConnection!
-  player(where: PlayerWhereUniqueInput!): Player
   players(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player]!
+  alliances(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Alliance]!
+  habitats(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat]!
+  player(where: PlayerWhereUniqueInput!): Player
+  alliance(where: AllianceWhereUniqueInput!): Alliance
+  habitat(where: HabitatWhereUniqueInput!): Habitat
   playersConnection(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PlayerConnection!
-  node(id: ID!): Node
+  alliancesConnection(where: AllianceWhereInput, orderBy: AllianceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AllianceConnection!
+  habitatsConnection(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HabitatConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
 }
 
 type Subscription {
+  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
   alliance(where: AllianceSubscriptionWhereInput): AllianceSubscriptionPayload
   habitat(where: HabitatSubscriptionWhereInput): HabitatSubscriptionPayload
-  player(where: PlayerSubscriptionWhereInput): PlayerSubscriptionPayload
 }

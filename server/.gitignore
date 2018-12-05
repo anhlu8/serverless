@@ -5,4 +5,3 @@ package-lock.json
 .vscode
 .serverless
 .DS_Store
-db
