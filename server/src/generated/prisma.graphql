@@ -221,6 +221,56 @@ type HabitatPreviousValues {
   creationDate: String!
 }
 
+input HabitatScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  mapX: Float
+  mapX_not: Float
+  mapX_in: [Float!]
+  mapX_not_in: [Float!]
+  mapX_lt: Float
+  mapX_lte: Float
+  mapX_gt: Float
+  mapX_gte: Float
+  mapY: Float
+  mapY_not: Float
+  mapY_in: [Float!]
+  mapY_not_in: [Float!]
+  mapY_lt: Float
+  mapY_lte: Float
+  mapY_gt: Float
+  mapY_gte: Float
+  creationDate: String
+  creationDate_not: String
+  creationDate_in: [String!]
+  creationDate_not_in: [String!]
+  creationDate_lt: String
+  creationDate_lte: String
+  creationDate_gt: String
+  creationDate_gte: String
+  creationDate_contains: String
+  creationDate_not_contains: String
+  creationDate_starts_with: String
+  creationDate_not_starts_with: String
+  creationDate_ends_with: String
+  creationDate_not_ends_with: String
+  AND: [HabitatScalarWhereInput!]
+  OR: [HabitatScalarWhereInput!]
+  NOT: [HabitatScalarWhereInput!]
+}
+
 type HabitatSubscriptionPayload {
   mutation: MutationType!
   node: Habitat
@@ -246,6 +296,12 @@ input HabitatUpdateInput {
   player: PlayerUpdateOneWithoutHabitatIDsInput
 }
 
+input HabitatUpdateManyDataInput {
+  mapX: Float
+  mapY: Float
+  creationDate: String
+}
+
 input HabitatUpdateManyMutationInput {
   mapX: Float
   mapY: Float
@@ -259,6 +315,13 @@ input HabitatUpdateManyWithoutPlayerInput {
   disconnect: [HabitatWhereUniqueInput!]
   update: [HabitatUpdateWithWhereUniqueWithoutPlayerInput!]
   upsert: [HabitatUpsertWithWhereUniqueWithoutPlayerInput!]
+  deleteMany: [HabitatScalarWhereInput!]
+  updateMany: [HabitatUpdateManyWithWhereNestedInput!]
+}
+
+input HabitatUpdateManyWithWhereNestedInput {
+  where: HabitatScalarWhereInput!
+  data: HabitatUpdateManyDataInput!
 }
 
 input HabitatUpdateWithoutPlayerDataInput {
@@ -433,6 +496,40 @@ type PlayerPreviousValues {
   nick: String!
 }
 
+input PlayerScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  nick: String
+  nick_not: String
+  nick_in: [String!]
+  nick_not_in: [String!]
+  nick_lt: String
+  nick_lte: String
+  nick_gt: String
+  nick_gte: String
+  nick_contains: String
+  nick_not_contains: String
+  nick_starts_with: String
+  nick_not_starts_with: String
+  nick_ends_with: String
+  nick_not_ends_with: String
+  AND: [PlayerScalarWhereInput!]
+  OR: [PlayerScalarWhereInput!]
+  NOT: [PlayerScalarWhereInput!]
+}
+
 type PlayerSubscriptionPayload {
   mutation: MutationType!
   node: Player
@@ -457,6 +554,10 @@ input PlayerUpdateInput {
   alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
 }
 
+input PlayerUpdateManyDataInput {
+  nick: String
+}
+
 input PlayerUpdateManyMutationInput {
   nick: String
 }
@@ -468,6 +569,13 @@ input PlayerUpdateManyWithoutAllianceInput {
   disconnect: [PlayerWhereUniqueInput!]
   update: [PlayerUpdateWithWhereUniqueWithoutAllianceInput!]
   upsert: [PlayerUpsertWithWhereUniqueWithoutAllianceInput!]
+  deleteMany: [PlayerScalarWhereInput!]
+  updateMany: [PlayerUpdateManyWithWhereNestedInput!]
+}
+
+input PlayerUpdateManyWithWhereNestedInput {
+  where: PlayerScalarWhereInput!
+  data: PlayerUpdateManyDataInput!
 }
 
 input PlayerUpdateOneWithoutHabitatIDsInput {

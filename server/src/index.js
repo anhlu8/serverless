@@ -2,7 +2,8 @@ require('dotenv').config()
 const path = require('path');
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
-const { resolvers, jsonArrs } = require('../utils/index');
+const { jsonArrs } = require('../utils/index');
+const { resolvers } = require("./resolvers")
 
 const arrayToObject = (arr, keyField) =>
     Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
@@ -14,17 +15,18 @@ const getDB = async () => {
     return db;
 };
 
+
 const startServer = async () => {
   let db = await getDB();
   const server = new GraphQLServer({
-    typeDefs: path.join(__dirname, './schema.graphql'),
+    typeDefs: './src/schema.graphql',
     resolvers,
-    context(req) { 
+    context: (req) => { 
       return {
         ...req,
         db,
         prisma: new Prisma({
-          typeDefs: path.join(__dirname, './generated/prisma.graphql'),
+          typeDefs: 'src/generated/prisma.graphql',
           endpoint: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev',
           debug: true,
         }),
@@ -39,3 +41,25 @@ const startServer = async () => {
 };
 
 startServer();
+
+
+
+
+// import { GraphQLServer, MockList } from 'graphql-yoga'
+
+// const typeDefs = `
+//   type Query {
+//     hello(name: String): String!
+//     listOfStrings: [String]
+//   }
+// `
+
+// const mocks = {
+//   Query: () => ({
+//     hello: () => 'Hello World',
+//     listOfStrings: () => new MockList([2, 6]),
+//   }),
+// }
+
+// const server = new GraphQLServer({ typeDefs, resolvers: () => true, mocks })
+// server.start()
