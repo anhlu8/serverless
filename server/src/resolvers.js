@@ -8,21 +8,12 @@ const resolvers = {
         players(parent, args, { prisma }, info) {
             return prisma.query.players({}, info); 
         },
-        player(parent, { id }, { prisma }, info) {
-            return prisma.query.player({ where: { id } }, info);
-        },
         habitats(parent, args, { prisma }, info) {
             return prisma.query.habitats({}, info)
-        },
-        habitat(parent, { id }, { prisma }, info) {
-            return prisma.query.habitat({ where: { id } }, info)
         },
         alliances(parent, args, { prisma }, info) {
             return prisma.query.alliances({}, info)
         },
-        alliance(parent, { id }, { prisma }, info) {
-            return prisma.query.alliance({ where: { id } }, info)
-        }
     },
     Mutation: {
         async createPlayer(parent, args, { prisma, db}, info) {
