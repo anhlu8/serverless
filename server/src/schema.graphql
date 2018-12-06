@@ -64,7 +64,7 @@ type Habitat {
   mapX: Float!
   mapY: Float!
   creationDate: String!
-  player: Player!
+  player: Player
 }
 
 # type AuthPayload {
