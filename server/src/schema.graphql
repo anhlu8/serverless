@@ -11,6 +11,9 @@ type Mutation {
   createPlayer(data: CreatePlayerInput!): Player!
   createAlliance(data: CreateAllianceInput!): Alliance!
   createHabitat(data: CreateHabitatInput!): Habitat!
+  deletePlayer(number: Int!): Player!
+  deleteAlliance(number: Int!): Alliance!
+  deleteHabitat(number: Int!): Habitat!
 }
 
 input CreatePlayerInput {

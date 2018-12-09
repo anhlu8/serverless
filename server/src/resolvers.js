@@ -47,16 +47,18 @@ const resolvers = {
             })
             return await Promise.all(promises);
         },
+        async deletePlayer(parent, { number }, {prisma}, info) {
+            return prisma.mutation.deletePlayer({ where: { number } }, info)
+        },
+        async deleteAlliance(parent, { number }, {prisma}, info) {
+            return prisma.mutation.deleteAlliance({ where: { number } }, info)
+        },
+        async deleteHabitat(parent, { number }, {prisma}, info) {
+            return prisma.mutation.deleteHabitat({ where: { number } }, info)
+        },
     }
 };
 
 
 module.exports.resolvers = resolvers;
 
-
-// const dbPlayerNick = db.players.list[10].nick;
-            // console.log('Nick',dbPlayerNick)
-            // const dbPlayer10 = db.players.list[10];
-            // console.log('Player 10',dbPlayer10)
-
-            // ******
