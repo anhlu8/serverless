@@ -1,5 +1,4 @@
 require('dotenv').config()
-const path = require('path');
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const { jsonArrs } = require('../utils/index');
@@ -10,14 +9,15 @@ const arrayToObject = (arr, keyField) =>
 
 const getDB = async () => {
     let promise = await jsonArrs();
-
     let db = await arrayToObject(promise, "title")
-    return db;
+    // console.log("2",db.alliances.list) ;
+    return db
 };
 
 
 const startServer = async () => {
   let db = await getDB();
+  // console.log('db.players',db.players)
   const server = new GraphQLServer({
     typeDefs: './src/schema.graphql',
     resolvers,
@@ -41,25 +41,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-
-
-
-// import { GraphQLServer, MockList } from 'graphql-yoga'
-
-// const typeDefs = `
-//   type Query {
-//     hello(name: String): String!
-//     listOfStrings: [String]
-//   }
-// `
-
-// const mocks = {
-//   Query: () => ({
-//     hello: () => 'Hello World',
-//     listOfStrings: () => new MockList([2, 6]),
-//   }),
-// }
-
-// const server = new GraphQLServer({ typeDefs, resolvers: () => true, mocks })
-// server.start()

@@ -33,17 +33,24 @@ SLS_DEBUG=*
 ```
 * Run `sls deploy`
 ## Built With
-* [Serverless framework](https://serverless.com/) - to replace Express.js
+* [Serverless framework](https://serverless.com/)
 * [AWS](https://aws.amazon.com/)
     - Lambda
     - SQS (decoupling solutions)
     - S3
     - RDS MySQL
     - Identity and Access Management (IAM)
+    - CloudWatch
+    - CloudFormation
 * [React.js](https://reactjs.org/) 
+* [Apollo](https://www.apollographql.com/) 
 * [Node.js](https://nodejs.org/en/) 
 * [GraphQL](https://graphql.org/) 
-    - Other technologies to be used with GraphQL: Prisma, Apollo
+* [Prisma](https://www.prisma.io/) 
+
+
+## Demos:
+Part 1 | Serverless - AWS: [![Watch the video](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)
 ## Authors
 * **Anh Lu**
 <!-- ## License

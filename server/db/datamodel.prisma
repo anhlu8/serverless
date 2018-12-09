@@ -3,6 +3,7 @@
 
 type Player {
   id: ID! @unique
+  number: Int! @unique
   nick: String!
   habitatIDs: [Habitat!]!
   alliance: Alliance!
@@ -10,6 +11,7 @@ type Player {
 
 type Alliance {
   id: ID! @unique
+  number: Int! @unique
   name: String!
   playerArray: [Player!]!
   points: Float!
@@ -17,14 +19,9 @@ type Alliance {
 
 type Habitat {
   id: ID! @unique
+  number: Int! @unique
   mapX: Float!
   mapY: Float!
   creationDate: String!
   player: Player
 }
-
-# type User {
-#   id: ID! @unique
-#   email: String! @unique
-#   password: String!
-# }
