@@ -1,7 +1,3 @@
-# The schema.graphql file (not the same intention as datamodel.graphql) defines the type definitions for our Node GraphQL API. 
-# These are the resolvers we want to expose through the Node app.
-
-
 type Query {
   players: [Player!]!
   player(id: ID!): Player!
@@ -9,70 +5,50 @@ type Query {
   alliance(id: ID!): Alliance!
   habitats: [Habitat!]!
   habitat(id: ID!): Habitat!
-  # user(id: ID, email:String!): User!
 }
 
 type Mutation {
   createPlayer(data: CreatePlayerInput!): Player!
   createAlliance(data: CreateAllianceInput!): Alliance!
   createHabitat(data: CreateHabitatInput!): Habitat!
-  # createUser(data:CreateUserInput!): User!
-  # signup(email:String!, password:String!): AuthPayload
-  # login(email:String!, password:String!): AuthPayload
 }
 
-# input CreateUserInput {
-#   id: ID!
-#   email: String!
-#   password: String!
-# }
-
 input CreatePlayerInput {
-  id: ID!
+  number: Int!
   nick: String!
 }
 
 type Player {
-  id: ID! 
   nick: String!
+  number: Int!
   habitatIDs: [Habitat!]!
   alliance: Alliance!
 }
 
 input CreateAllianceInput {
-  id: ID!
+  number: Int!
   name: String!
   points: Float!
 }
 
 type Alliance {
-  id: ID!
   nickname: String!
+  number: Int!
   playerArray: [Player!]!
   points: Float!
 }
 
 input CreateHabitatInput {
-  id: ID!
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
 }
 
 type Habitat {
-  id: ID!
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
   player: Player
 }
-
-# type AuthPayload {
-#   token: String!
-#   user: User
-# }
-
-# type User {
-#   id: ID!
-#   email: String!
-# }

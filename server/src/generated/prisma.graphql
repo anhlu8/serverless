@@ -12,6 +12,7 @@ type AggregatePlayer {
 
 type Alliance {
   id: ID!
+  number: Int!
   name: String!
   playerArray(where: PlayerWhereInput, orderBy: PlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Player!]
   points: Float!
@@ -24,6 +25,7 @@ type AllianceConnection {
 }
 
 input AllianceCreateInput {
+  number: Int!
   name: String!
   playerArray: PlayerCreateManyWithoutAllianceInput
   points: Float!
@@ -35,6 +37,7 @@ input AllianceCreateOneWithoutPlayerArrayInput {
 }
 
 input AllianceCreateWithoutPlayerArrayInput {
+  number: Int!
   name: String!
   points: Float!
 }
@@ -47,6 +50,8 @@ type AllianceEdge {
 enum AllianceOrderByInput {
   id_ASC
   id_DESC
+  number_ASC
+  number_DESC
   name_ASC
   name_DESC
   points_ASC
@@ -59,6 +64,7 @@ enum AllianceOrderByInput {
 
 type AlliancePreviousValues {
   id: ID!
+  number: Int!
   name: String!
   points: Float!
 }
@@ -82,12 +88,14 @@ input AllianceSubscriptionWhereInput {
 }
 
 input AllianceUpdateInput {
+  number: Int
   name: String
   playerArray: PlayerUpdateManyWithoutAllianceInput
   points: Float
 }
 
 input AllianceUpdateManyMutationInput {
+  number: Int
   name: String
   points: Float
 }
@@ -100,6 +108,7 @@ input AllianceUpdateOneRequiredWithoutPlayerArrayInput {
 }
 
 input AllianceUpdateWithoutPlayerArrayDataInput {
+  number: Int
   name: String
   points: Float
 }
@@ -124,6 +133,14 @@ input AllianceWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   name: String
   name_not: String
   name_in: [String!]
@@ -156,6 +173,7 @@ input AllianceWhereInput {
 
 input AllianceWhereUniqueInput {
   id: ID
+  number: Int
 }
 
 type BatchPayload {
@@ -164,6 +182,7 @@ type BatchPayload {
 
 type Habitat {
   id: ID!
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
@@ -177,6 +196,7 @@ type HabitatConnection {
 }
 
 input HabitatCreateInput {
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
@@ -189,6 +209,7 @@ input HabitatCreateManyWithoutPlayerInput {
 }
 
 input HabitatCreateWithoutPlayerInput {
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
@@ -202,6 +223,8 @@ type HabitatEdge {
 enum HabitatOrderByInput {
   id_ASC
   id_DESC
+  number_ASC
+  number_DESC
   mapX_ASC
   mapX_DESC
   mapY_ASC
@@ -216,6 +239,7 @@ enum HabitatOrderByInput {
 
 type HabitatPreviousValues {
   id: ID!
+  number: Int!
   mapX: Float!
   mapY: Float!
   creationDate: String!
@@ -236,6 +260,14 @@ input HabitatScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   mapX: Float
   mapX_not: Float
   mapX_in: [Float!]
@@ -290,6 +322,7 @@ input HabitatSubscriptionWhereInput {
 }
 
 input HabitatUpdateInput {
+  number: Int
   mapX: Float
   mapY: Float
   creationDate: String
@@ -297,12 +330,14 @@ input HabitatUpdateInput {
 }
 
 input HabitatUpdateManyDataInput {
+  number: Int
   mapX: Float
   mapY: Float
   creationDate: String
 }
 
 input HabitatUpdateManyMutationInput {
+  number: Int
   mapX: Float
   mapY: Float
   creationDate: String
@@ -325,6 +360,7 @@ input HabitatUpdateManyWithWhereNestedInput {
 }
 
 input HabitatUpdateWithoutPlayerDataInput {
+  number: Int
   mapX: Float
   mapY: Float
   creationDate: String
@@ -356,6 +392,14 @@ input HabitatWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   mapX: Float
   mapX_not: Float
   mapX_in: [Float!]
@@ -394,6 +438,7 @@ input HabitatWhereInput {
 
 input HabitatWhereUniqueInput {
   id: ID
+  number: Int
 }
 
 scalar Long
@@ -438,6 +483,7 @@ type PageInfo {
 
 type Player {
   id: ID!
+  number: Int!
   nick: String!
   habitatIDs(where: HabitatWhereInput, orderBy: HabitatOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Habitat!]
   alliance: Alliance!
@@ -450,6 +496,7 @@ type PlayerConnection {
 }
 
 input PlayerCreateInput {
+  number: Int!
   nick: String!
   habitatIDs: HabitatCreateManyWithoutPlayerInput
   alliance: AllianceCreateOneWithoutPlayerArrayInput!
@@ -466,11 +513,13 @@ input PlayerCreateOneWithoutHabitatIDsInput {
 }
 
 input PlayerCreateWithoutAllianceInput {
+  number: Int!
   nick: String!
   habitatIDs: HabitatCreateManyWithoutPlayerInput
 }
 
 input PlayerCreateWithoutHabitatIDsInput {
+  number: Int!
   nick: String!
   alliance: AllianceCreateOneWithoutPlayerArrayInput!
 }
@@ -483,6 +532,8 @@ type PlayerEdge {
 enum PlayerOrderByInput {
   id_ASC
   id_DESC
+  number_ASC
+  number_DESC
   nick_ASC
   nick_DESC
   createdAt_ASC
@@ -493,6 +544,7 @@ enum PlayerOrderByInput {
 
 type PlayerPreviousValues {
   id: ID!
+  number: Int!
   nick: String!
 }
 
@@ -511,6 +563,14 @@ input PlayerScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   nick: String
   nick_not: String
   nick_in: [String!]
@@ -549,16 +609,19 @@ input PlayerSubscriptionWhereInput {
 }
 
 input PlayerUpdateInput {
+  number: Int
   nick: String
   habitatIDs: HabitatUpdateManyWithoutPlayerInput
   alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
 }
 
 input PlayerUpdateManyDataInput {
+  number: Int
   nick: String
 }
 
 input PlayerUpdateManyMutationInput {
+  number: Int
   nick: String
 }
 
@@ -588,11 +651,13 @@ input PlayerUpdateOneWithoutHabitatIDsInput {
 }
 
 input PlayerUpdateWithoutAllianceDataInput {
+  number: Int
   nick: String
   habitatIDs: HabitatUpdateManyWithoutPlayerInput
 }
 
 input PlayerUpdateWithoutHabitatIDsDataInput {
+  number: Int
   nick: String
   alliance: AllianceUpdateOneRequiredWithoutPlayerArrayInput
 }
@@ -628,6 +693,14 @@ input PlayerWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
+  number: Int
+  number_not: Int
+  number_in: [Int!]
+  number_not_in: [Int!]
+  number_lt: Int
+  number_lte: Int
+  number_gt: Int
+  number_gte: Int
   nick: String
   nick_not: String
   nick_in: [String!]
@@ -653,6 +726,7 @@ input PlayerWhereInput {
 
 input PlayerWhereUniqueInput {
   id: ID
+  number: Int
 }
 
 type Query {

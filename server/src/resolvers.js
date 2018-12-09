@@ -1,8 +1,3 @@
-// require('dotenv').config()
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
-// const { jsonArrs } = require('../../src');
-
 const resolvers = {
     Query: {
         players(parent, args, { prisma }, info) {
@@ -16,69 +11,52 @@ const resolvers = {
         },
     },
     Mutation: {
-        async createPlayer(parent, args, { prisma, db}, info) {
-            db.players.list.map(i => {
-                return prisma.mutation.createPlayer({ data: {
-                    id: i.id,
-                    nick: i.nick
+        async createPlayer(parent, args, { prisma, db }, info) {
+            const promises = db.players.list.map(async player => {
+                let newDB = await prisma.mutation.createPlayer({ 
+                    data: {
+                    number: player.id,
+                    nick: player.nick
                 }}, info)
+                return newDB;
             })
+            return await Promise.all(promises)
         },
         async createAlliance(parent, args, { prisma, db}, info) {
-            db.alliances.list.map(i => {
-                return prisma.mutation.createAlliance({ data: {
-                    id: i.id,
-                    name: i.name,
-                    points: i.points
-                }}, info)
+            const promises = db.alliances.list.map(async alliance => {
+                let newDB =  await prisma.mutation.createAlliance({ 
+                    data: {
+                        number: alliance.id,
+                        name: alliance.name,
+                        points: alliance.points
+                    }}, info);
+                return newDB;
             })
+            return await Promise.all(promises);
         },
         async createHabitat(parent, args, { prisma, db}, info) {
-            db.habitats.list.map(i => {
-                return prisma.mutation.createHabitat({ data: {
-                    id: i.id,
-                    mapX: i.mapX,
-                    mapY: i.mapY,
-                    creationDate: i.creationDate
-                }}, info)
+            const promises = db.habitats.list.map(async habitat => {
+                let newDB = await prisma.mutation.createHabitat({ 
+                    data: {
+                        number: habitat.id,
+                        mapX: habitat.mapX,
+                        mapY: habitat.mapY,
+                        creationDate: habitat.creationDate
+                    }}, info);
+                return newDB;
             })
+            return await Promise.all(promises);
         },
-        // async signup(parent, {email, password}, { prisma, db }, info){
-        //     const encryptedPassword = await bcrypt.hash(password, 10);
-        //     const user = await prisma.mutation.createUser({
-        //         data:{
-        //             email,
-        //             password: encryptedPassword
-        //         }
-        //     }, `{id}`);
-        //     const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
-        //     return {
-        //         token,
-        //         user
-        //     }
-        // },
-        // async login(parent, {email, password}, { prisma, db }, info){
-        //     const user = await prisma.query.user({
-        //         where:{
-        //             email
-        //         }
-        //     }, `{id password}`);
-        //     if (!user){
-        //         throw new Error('No such a user')
-        //     }
-        //     const valid = await bcrypt.compare(password, user.password);
-        //     if (!valid){
-        //         throw new Error('Invalid password')
-        //     }
-        //     const token = jwt.sign({userId: user.id}, process.env.APP_SECRET);
-        //     return {
-        //         token,
-        //         user
-        //     }
-        // },
-    },
+    }
 };
 
 
 module.exports.resolvers = resolvers;
 
+
+// const dbPlayerNick = db.players.list[10].nick;
+            // console.log('Nick',dbPlayerNick)
+            // const dbPlayer10 = db.players.list[10];
+            // console.log('Player 10',dbPlayer10)
+
+            // ******
