@@ -9,7 +9,6 @@ const FEED_QUERY = gql`
       players {
         number
         nick
-        habitatIDs
         alliance
       }
     }
@@ -34,9 +33,11 @@ class Player extends Component {
                                 <TableHead>Alliance</TableHead>
                             </TableHeader>
                             <TableBody>
-                                {playersToRender.map(player => <TableData key={player.id} id={player.number} />)}
-                                {playersToRender.map(player => <TableData key={player.id} nick={player.nick} />)}
-                                {playersToRender.map(player => <TableData key={player.id} alliance={player.alliance} />)}
+                                {playersToRender.map(player => {
+                                    <TableData key={player.id} id={player.number} />;
+                                    <TableData key={player.id} nick={player.nick} />;
+                                    <TableData key={player.id} alliance={player.alliance} />;
+                                })}
                             </TableBody>
                         </Table>
                     </div>)
