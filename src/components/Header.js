@@ -11,12 +11,12 @@ class Header extends Component {
           <Link to="/" className="ml1 no-underline black">
             Players
           </Link> |
-          {/* <Link to="/habitat" className="ml1 no-underline black">
+          <Link to="/habitat" className="ml1 no-underline black">
             Habitats
           </Link> |
           <Link to="/alliance" className="ml1 no-underline black">
             Alliances
-          </Link> */}
+          </Link>
         </div>
       </div>
     )
