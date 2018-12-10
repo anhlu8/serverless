@@ -50,7 +50,7 @@ SLS_DEBUG=*
 
 
 ## Demos:
-Part 1 | Serverless - AWS: [![Watch the video](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)
+Part 1 | Serverless - AWS: [![Watch the video]](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)
 ## Authors
 * **Anh Lu**
 <!-- ## License
