@@ -9,8 +9,14 @@ class Header extends Component {
         <div className="flex flex-fixed black">
           <div className="fw7 mr1">LK Game</div>
           <Link to="/" className="ml1 no-underline black">
-            Home
-          </Link>
+            Players
+          </Link> |
+          {/* <Link to="/habitat" className="ml1 no-underline black">
+            Habitats
+          </Link> |
+          <Link to="/alliance" className="ml1 no-underline black">
+            Alliances
+          </Link> */}
         </div>
       </div>
     )

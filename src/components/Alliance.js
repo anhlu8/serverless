@@ -2,10 +2,10 @@ import React from "react";
 import { Table, TableHeader, TableRow } from './Table/index'
 
 
-const Players = () => {
+const Alliance = () => {
     return (<div>
         
     </div>)
 };
 
-export default Players;
+export default Alliance;

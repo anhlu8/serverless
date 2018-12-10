@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import Header from './components/Header'
-import Players from './components/Players'
+import Header from "./components/Header";
+import Player from "./components/Player";
+import Habitat from "./components/Habitat";
+import Alliance from "./components/Alliance";
+
 import { Switch, Route } from 'react-router-dom'
 
 class App extends Component {
@@ -10,7 +13,9 @@ class App extends Component {
         <Header />
         <div>
           <Switch>
-            <Route exact path="/" component={Players} />
+            <Route exact path="/" component={Player} />
+            {/* <Route exact path="/habitat" component={Habitat} />
+            <Route exact path="/alliance" component={Alliance} /> */}
           </Switch>
         </div>
       </div>

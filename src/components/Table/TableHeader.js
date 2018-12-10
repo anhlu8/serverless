@@ -1,13 +1,14 @@
 import React from 'react';
 
 
-export const TableHeader = ({ children }) => {
+export const TableHeader = ({children}) => {
     return (
-        <tr>
-            <th>{ children }</th>
-            <th>{ children }</th>
-            <th>{ children }</th>
-        </tr>);
+        <thead>
+            <tr>
+                {children}
+            </tr>
+        </thead>
+        );
 }
 
 
