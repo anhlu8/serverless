@@ -11,7 +11,6 @@ const FEED_QUERY = gql`
         mapX
         mapY
         creationDate
-        player
       }
     }
   }
@@ -34,14 +33,14 @@ class Habitat extends Component {
                                 <TableHead>MapX</TableHead>
                                 <TableHead>MapY</TableHead>
                                 <TableHead>CreationDate</TableHead>
-                                <TableHead>Player</TableHead>
                             </TableHeader>
                             <TableBody>
-                                {habitatsToRender.map(habitat => <TableData key={habitat.id} id={habitat.number} />)}
-                                {habitatsToRender.map(habitat => <TableData key={habitat.id} mapx={habitat.mapX} />)}
-                                {habitatsToRender.map(habitat => <TableData key={habitat.id} mapy={habitat.mapY} />)}
-                                {habitatsToRender.map(habitat => <TableData key={habitat.id} creationdate={habitat.creationDate} />)}
-                                {habitatsToRender.map(habitat => <TableData key={habitat.id} player={habitat.player} />)}
+                                {habitatsToRender.map(habitat => {
+                                    <TableData key={habitat.id} id={habitat.number} />;
+                                    <TableData key={habitat.id} mapx={habitat.mapX} />;
+                                    <TableData key={habitat.id} mapy={habitat.mapY} />;
+                                    <TableData key={habitat.id} creationdate={habitat.creationDate} />
+                                })}
                             </TableBody>
                         </Table>
                     </div>)

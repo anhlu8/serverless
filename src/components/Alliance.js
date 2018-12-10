@@ -8,10 +8,8 @@ const FEED_QUERY = gql`
     feed {
       alliances {
         number
-        mapX
-        mapY
-        creationDate
-        player
+        name
+        points
       }
     }
   }
@@ -35,9 +33,11 @@ class Alliance extends Component {
                                 <TableHead>Points</TableHead>
                             </TableHeader>
                             <TableBody>
-                                {alliancesToRender.map(alliance => <TableData key={alliance.id} id={alliance.number} />)}
-                                {alliancesToRender.map(alliance => <TableData key={alliance.id} name={alliance.name} />)}
-                                {alliancesToRender.map(alliance => <TableData key={alliance.id} points={alliance.points} />)}
+                                {alliancesToRender.map(alliance => {
+                                    <TableData key={alliance.id} id={alliance.number} />;
+                                    <TableData key={alliance.id} name={alliance.name} />;
+                                    <TableData key={alliance.id} points={alliance.points} />;
+                                })}
                             </TableBody>
                         </Table>
                     </div>)

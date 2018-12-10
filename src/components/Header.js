@@ -7,18 +7,20 @@ class Header extends Component {
     return (
       <div className="flex pa1 justify-between nowrap orange">
         <div className="flex flex-fixed black">
-          <div className="fw7 mr1">LK Game</div>
-          <Link to="/" className="ml1 no-underline black">
+          <Link to="/" className="f6 fw4 hover-white no-underline black-70 dn dib-ns pv2 ph3">
             Players
-          </Link> |
-          <Link to="/habitat" className="ml1 no-underline black">
+          </Link>
+          <span className="f6 fw4 no-underline black-70 dn dib-ns pv2 ph3">|</span>
+          <Link to="/habitat" className="f6 fw4 hover-white no-underline black-70 dn dib-ns pv2 ph3">
             Habitats
-          </Link> |
-          <Link to="/alliance" className="ml1 no-underline black">
+          </Link>
+          <span className="f6 fw4 no-underline black-70 dn dib-ns pv2 ph3">|</span>
+          <Link to="/alliance" className="f6 fw4 hover-white no-underline black-70 dn dib-ns pv2 ph3">
             Alliances
           </Link>
         </div>
       </div>
+
     )
   }
 }
