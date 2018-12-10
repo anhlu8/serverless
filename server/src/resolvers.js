@@ -16,7 +16,12 @@ const resolvers = {
                 let newDB = await prisma.mutation.createPlayer({ 
                     data: {
                     number: player.id,
-                    nick: player.nick
+                    nick: player.nick,
+                    alliance:{
+                        connect:{
+                            number: player.allianceID
+                        }
+                    }
                 }}, info)
                 return newDB;
             })
@@ -41,7 +46,12 @@ const resolvers = {
                         number: habitat.id,
                         mapX: habitat.mapX,
                         mapY: habitat.mapY,
-                        creationDate: habitat.creationDate
+                        creationDate: habitat.creationDate,
+                        player:{
+                            connect:{
+                                number: habitat.playerID
+                            }
+                        }
                     }}, info);
                 return newDB;
             })
