@@ -24,8 +24,8 @@ input CreatePlayerInput {
 type Player {
   nick: String!
   number: Int!
-  habitatIDs: [Habitat!]!
-  alliance: Alliance!
+  habitatIDs: [Habitat!]
+  alliance: Alliance
 }
 
 input CreateAllianceInput {
