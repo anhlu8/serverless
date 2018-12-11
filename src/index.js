@@ -9,7 +9,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000'
+  uri: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev'
 })
 
 const client = new ApolloClient({
@@ -19,9 +19,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <BrowserRouter>
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
   </BrowserRouter>,
   document.getElementById('root')
 )

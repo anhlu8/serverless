@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 export const Table = ({children}) => {
-    return (<div>
-                <table>
-                {children}
-                </table>
-            </div>)
+    return (
+        <table>
+            {children}
+        </table>
+    );
 };

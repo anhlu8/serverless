@@ -1,31 +1,31 @@
-import React, {Component} from "react";
-import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index'
+import React, { Component, Fragment } from "react";
+import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index';
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+const uuidv4 = require('uuid/v4');
 
-const FEED_QUERY = gql`
-  {
-    feed {
-      players {
+const PLAYERS_QUERY = gql`
+{
+    players {
         number
         nick
-        alliance
-      }
+
     }
-  }
-`
+}
+`;
 
 class Player extends Component {
     render() {
         return (
-            <Query query={FEED_QUERY}>
+            <Query query={PLAYERS_QUERY}>
                 {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
-                    if (error) return <div>Error</div>
+                    if (error) console.log(error)
+                    console.log("1", data)
 
-                    const playersToRender = data.feed.players
+                    const playersToRender = data.players
 
-                    return (<div styles={{ padding: "20px" }}>
+                    return (
                         <Table>
                             <TableHeader>
                                 <TableHead>ID</TableHead>
@@ -34,13 +34,17 @@ class Player extends Component {
                             </TableHeader>
                             <TableBody>
                                 {playersToRender.map(player => {
-                                    <TableData key={player.id} id={player.number} />;
-                                    <TableData key={player.id} nick={player.nick} />;
-                                    <TableData key={player.id} alliance={player.alliance} />;
+                                    const { nick, number } = player
+                                    return (
+                                        <Fragment key={uuidv4()}>
+                                            <TableData key={uuidv4()} id={number} />
+                                            <TableData key={uuidv4()} nick={nick} />
+                                            {/* <TableData key={player.id} alliance={player.alliance} /> */}
+                                        </Fragment>)
                                 })}
                             </TableBody>
                         </Table>
-                    </div>)
+                    )
                 }}
             </Query>
         )
