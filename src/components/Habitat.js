@@ -1,7 +1,8 @@
-import React, {Component} from "react";
-import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index'
+import React, { Component, Fragment } from "react";
+import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index';
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+const uuidv4 = require('uuid/v4');
 
 const FEED_QUERY = gql`
   {
@@ -26,7 +27,7 @@ class Habitat extends Component {
 
                     const habitatsToRender = data.feed.habitats
 
-                    return (<div styles={{ padding: "20px" }}>
+                    return (
                         <Table>
                             <TableHeader>
                                 <TableHead>ID</TableHead>
@@ -36,14 +37,18 @@ class Habitat extends Component {
                             </TableHeader>
                             <TableBody>
                                 {habitatsToRender.map(habitat => {
-                                    <TableData key={habitat.id} id={habitat.number} />;
-                                    <TableData key={habitat.id} mapx={habitat.mapX} />;
-                                    <TableData key={habitat.id} mapy={habitat.mapY} />;
-                                    <TableData key={habitat.id} creationdate={habitat.creationDate} />
+                                    return (
+                                        <Fragment key={uuidv4()}>
+                                            <TableData key={uuidv4()} id={habitat.number} />
+                                            <TableData key={uuidv4()} mapx={habitat.mapX} />
+                                            <TableData key={uuidv4()} mapy={habitat.mapY} />
+                                            <TableData key={uuidv4()} creationdate={habitat.creationDate} />
+                                        </Fragment>
+                                    )
                                 })}
                             </TableBody>
                         </Table>
-                    </div>)
+                )
                 }}
             </Query>
         )

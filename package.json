@@ -3,21 +3,25 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^3.6.2",
     "apollo-boost": "^0.1.22",
+    "concurrently": "^4.1.0",
     "graphql": "^14.0.2",
     "react": "^16.6.3",
     "react-apollo": "^2.3.2",
     "react-dom": "^16.6.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "cd ./server && yarn run devv",
+    "client": "PORT=7777 yarn start",
+    "dev": "concurrently \"yarn run server\" \"yarn run client\" "
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 
-export const TableData = ({children}) => {
-    return (<td>{children}</td>);
+export const TableData = (props) => {
+    
+    return (
+        <Fragment>
+            <td>{props.id}</td>
+            <td>{props.nick}</td> 
+                       
+        </Fragment>
+    );
 };
 
 

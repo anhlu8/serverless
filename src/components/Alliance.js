@@ -1,7 +1,8 @@
-import React, {Component} from "react";
-import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index'
+import React, { Component, Fragment } from "react";
+import { Table, TableHeader, TableBody, TableData, TableHead } from './Table/index';
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+const uuidv4 = require('uuid/v4');
 
 const FEED_QUERY = gql`
   {
@@ -25,7 +26,7 @@ class Alliance extends Component {
 
                     const alliancesToRender = data.feed.alliances
 
-                    return (<div styles={{ padding: "20px" }}>
+                    return (
                         <Table>
                             <TableHeader>
                                 <TableHead>ID</TableHead>
@@ -34,13 +35,17 @@ class Alliance extends Component {
                             </TableHeader>
                             <TableBody>
                                 {alliancesToRender.map(alliance => {
-                                    <TableData key={alliance.id} id={alliance.number} />;
-                                    <TableData key={alliance.id} name={alliance.name} />;
-                                    <TableData key={alliance.id} points={alliance.points} />;
+                                    return (
+                                        <Fragment key={uuidv4()}>
+                                            <TableData key={uuidv4()} id={alliance.number} />
+                                            <TableData key={uuidv4()} name={alliance.name} />
+                                            <TableData key={uuidv4()} points={alliance.points} />
+                                        </Fragment>
+                                    )
                                 })}
                             </TableBody>
                         </Table>
-                    </div>)
+                    )
                 }}
             </Query>
         )

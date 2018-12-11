@@ -2,7 +2,8 @@ require('dotenv').config()
 const { GraphQLServer } = require('graphql-yoga');
 const { Prisma } = require('prisma-binding');
 const { jsonArrs } = require('../utils/index');
-const { resolvers } = require("./resolvers")
+const { resolvers } = require("./resolvers");
+
 
 const arrayToObject = (arr, keyField) =>
     Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
