@@ -39,6 +39,7 @@ SLS_DEBUG=*
     - SQS (decoupling solutions)
     - S3
     - RDS MySQL
+    - Fargate
     - Identity and Access Management (IAM)
     - CloudWatch
     - CloudFormation
@@ -48,6 +49,8 @@ SLS_DEBUG=*
 * [GraphQL](https://graphql.org/) 
 * [Prisma](https://www.prisma.io/) 
 
+## Back-end:
+![Architecture](./backend.png)
 
 ## Demos:
 Part 1 | Serverless - AWS: [![Watch the video]](https://drive.google.com/file/d/1bKuYU4d5reCn6skRklZQ0ynnvOnvARJX/view)
