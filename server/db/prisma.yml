@@ -1,4 +1,4 @@
-endpoint: https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev #This end point is the same as the prisma's end point in handler.js
+endpoint: http://my-pr-Publi-1QWIS1O4GY0T0-1152267085.us-east-1.elb.amazonaws.com/redqueen/dev
 datamodel: datamodel.prisma
 # secret: secretRQ
 generate:

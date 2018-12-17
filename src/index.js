@@ -9,7 +9,7 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
 const httpLink = createHttpLink({
-  uri: 'https://us1.prisma.sh/public-purplecentaur-310/prisma-graphql/dev'
+  uri: 'http://my-pr-Publi-1QWIS1O4GY0T0-1152267085.us-east-1.elb.amazonaws.com/redqueen/dev'
 })
 
 const client = new ApolloClient({
