@@ -5,15 +5,13 @@ import gql from 'graphql-tag';
 const uuidv4 = require('uuid/v4');
 
 const FEED_QUERY = gql`
-  {
-    feed {
-      alliances {
+{
+    alliances {
         number
         name
         points
-      }
     }
-  }
+}
 `
 
 class Alliance extends Component {
@@ -24,7 +22,7 @@ class Alliance extends Component {
                     if (loading) return <div>Fetching</div>
                     if (error) return <div>Error</div>
 
-                    const alliancesToRender = data.feed.alliances
+                    const alliancesToRender = data.alliances
 
                     return (
                         <Table>
@@ -37,9 +35,7 @@ class Alliance extends Component {
                                 {alliancesToRender.map(alliance => {
                                     return (
                                         <Fragment key={uuidv4()}>
-                                            <TableData key={uuidv4()} id={alliance.number} />
-                                            <TableData key={uuidv4()} name={alliance.name} />
-                                            <TableData key={uuidv4()} points={alliance.points} />
+                                            <TableData data={alliance} />
                                         </Fragment>
                                     )
                                 })}

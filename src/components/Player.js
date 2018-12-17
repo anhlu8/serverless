@@ -21,7 +21,7 @@ class Player extends Component {
                 {({ loading, error, data }) => {
                     if (loading) return <div>Fetching</div>
                     if (error) console.log(error)
-                    console.log("1", data)
+                    
 
                     const playersToRender = data.players
 
@@ -34,12 +34,9 @@ class Player extends Component {
                             </TableHeader>
                             <TableBody>
                                 {playersToRender.map(player => {
-                                    const { nick, number } = player
                                     return (
                                         <Fragment key={uuidv4()}>
-                                            <TableData key={uuidv4()} id={number} />
-                                            <TableData key={uuidv4()} nick={nick} />
-                                            {/* <TableData key={player.id} alliance={player.alliance} /> */}
+                                            <TableData data={player} />
                                         </Fragment>)
                                 })}
                             </TableBody>
